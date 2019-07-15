@@ -1,0 +1,1 @@
+package ua.nure.nechaev.summarytask.db.bean;
