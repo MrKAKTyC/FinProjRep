@@ -18,6 +18,9 @@ import ua.nure.nechaev.summarytask.web.command.manager.ManagerDeleteComand;
 import ua.nure.nechaev.summarytask.web.command.manager.ManagerEditCommand;
 import ua.nure.nechaev.summarytask.web.command.manager.ManagerListCommand;
 import ua.nure.nechaev.summarytask.web.command.manager.ManagerUpdateComand;
+import ua.nure.nechaev.summarytask.web.command.report.ReportAddNewCommand;
+import ua.nure.nechaev.summarytask.web.command.report.ReportListCommand;
+import ua.nure.nechaev.summarytask.web.command.report.ReportUpdateCommand;
 import ua.nure.nechaev.summarytask.web.command.worker.WorkerAddNewCommand;
 import ua.nure.nechaev.summarytask.web.command.worker.WorkerDeleteComand;
 import ua.nure.nechaev.summarytask.web.command.worker.WorkerEditComand;
@@ -34,7 +37,6 @@ public class CommandContainer {
 		// common commands
 		commands.put("login", new LoginCommand());
 		commands.put("adminMenu", new AdminMenuCommand());
-		commands.put("reposList", new ReportListCommand());
 		//manager commands
 		commands.put("managerList", new ManagerListCommand());
 		commands.put("addNewManager", new ManagerAddNewCommand());
@@ -57,9 +59,10 @@ public class CommandContainer {
 		commands.put("crewList", new CrewListCommand());
 		commands.put("crewAddNew", new CrewAddNewCommand());
 		commands.put("crewDelete", new CrewDeleteComand());
-		
 		//report commands
-		
+		commands.put("reportList", new ReportListCommand());
+		commands.put("reportAdd", new ReportAddNewCommand());
+		commands.put("reportUpdate", new ReportUpdateCommand());
 		
 //		LOG.debug("Command container was successfully initialized");
 //		LOG.trace("Number of commands --> " + commands.size());

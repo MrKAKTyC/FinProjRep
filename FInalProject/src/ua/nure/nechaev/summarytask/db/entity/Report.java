@@ -5,6 +5,7 @@ public class Report {
 	private int id;
 	private int flightId;
 	private String description;
+	private int status;
 
 	public int getId() {
 		return id;
@@ -29,5 +30,14 @@ public class Report {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
 
 }

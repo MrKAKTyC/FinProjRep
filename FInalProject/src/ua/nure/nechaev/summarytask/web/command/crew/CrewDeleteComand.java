@@ -8,9 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ua.nure.nechaev.summarytask.Path;
+import ua.nure.nechaev.summarytask.db.dao.CrewDAO;
+import ua.nure.nechaev.summarytask.db.entity.FlightCrew;
 import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
-import ua.nure.nechaev.summarytask.web.command.CommandContainer;
+import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
 
 public class CrewDeleteComand extends Command {
@@ -20,8 +23,13 @@ public class CrewDeleteComand extends Command {
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
-		// TODO Auto-generated method stub
-		return null;
+		int crewId = Integer.parseInt(request.getParameter("id"));
+		CrewDAO crewDAO = new CrewDAO();
+		FlightCrew crewMember = new FlightCrew();
+		crewMember.setCrewId(crewId);
+		LOG.trace("removing crew member "+crewId);
+		crewDAO.removeCrewMember(crewMember );
+		return new PostRequest(Path.SHOW_ADMIN_MENU);
 	}
 
 }

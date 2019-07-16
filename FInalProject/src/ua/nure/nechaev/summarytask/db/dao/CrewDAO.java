@@ -31,8 +31,8 @@ public class CrewDAO {
 			while (rs.next()) {
 				FlightCrew crew = new FlightCrew();
 				crew.setCrewId(rs.getInt("crewID"));
-				crew.setCrewId(rs.getInt("flightID"));
-				crew.setCrewId(rs.getInt("workerID"));
+				crew.setFlightId(rs.getInt("flightID"));
+				crew.setWorkerId(rs.getInt("workerID"));
 				crewMembers.add(CrewBean.getInstance(crew));
 			}
 		} catch (SQLException e) {
