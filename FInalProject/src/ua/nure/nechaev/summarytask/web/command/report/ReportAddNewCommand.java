@@ -26,7 +26,7 @@ public class ReportAddNewCommand extends Command {
 		report.setDescription(reportReason);
 		ReportDAO reportDAO = new ReportDAO();
 		reportDAO.insert(report);
-		return new PostRequest(Path.PAGE_ADMIN_MENU);
+		return new PostRequest(Path.SHOW_ADMIN_MENU);
 	}
 
 }

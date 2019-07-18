@@ -13,7 +13,7 @@
 		<input name="name" value="${requestScope.worker.getName()}">
 		<select name="spec">
 			<c:forEach var="spec" items="${requestScope.specs}">
-				<option value="${spec.getIntVal()}" <c:if test="${spec.getIntVal() eq requestScope.worker.getSpec().getIntVal()}">selected</c:if>>${spec }</option>
+				<option value="${spec.getIntVal()}" <c:if test="${spec.getIntVal() eq requestScope.worker.getSpec()}">selected</c:if>>${spec }</option>
 			</c:forEach>
 		</select> <input type="submit" value="update">
 	</form>

@@ -8,6 +8,10 @@ public enum ReportStatus {
 	ReportStatus(int val) {
 		this.intVal = val;
 	}
+	
+	public int getIntVal() {
+		return intVal;
+	}
 
 	public static ReportStatus getStatus(int statusId) {
 		ReportStatus status = null;

@@ -13,6 +13,7 @@ import ua.nure.nechaev.summarytask.web.command.flight.FlightDeleteComand;
 import ua.nure.nechaev.summarytask.web.command.flight.FlightEditComand;
 import ua.nure.nechaev.summarytask.web.command.flight.FlightListCommand;
 import ua.nure.nechaev.summarytask.web.command.flight.FlightUpdateComand;
+import ua.nure.nechaev.summarytask.web.command.flight.FlightsCommand;
 import ua.nure.nechaev.summarytask.web.command.manager.ManagerAddNewCommand;
 import ua.nure.nechaev.summarytask.web.command.manager.ManagerDeleteComand;
 import ua.nure.nechaev.summarytask.web.command.manager.ManagerEditCommand;
@@ -50,6 +51,7 @@ public class CommandContainer {
 		commands.put("workerUpdate", new WorkerUpdateComand());
 		commands.put("workerDelete", new WorkerDeleteComand());
 		//flight commands
+		commands.put("flights", new FlightsCommand());
 		commands.put("flightList", new FlightListCommand());
 		commands.put("flightAddNew", new FlightAddNewCommand());
 		commands.put("flightEdit", new FlightEditComand());

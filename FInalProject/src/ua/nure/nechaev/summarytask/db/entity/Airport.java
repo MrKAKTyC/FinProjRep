@@ -37,5 +37,10 @@ public class Airport {
 	public void setAirportName(String airportName) {
 		this.airportName = airportName;
 	}
+	
+	@Override
+	public String toString() {
+		return airportName + " ("+city+", "+country+")";
+	}
 
 }

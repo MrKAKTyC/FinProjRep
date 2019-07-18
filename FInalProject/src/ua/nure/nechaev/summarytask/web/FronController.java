@@ -72,12 +72,11 @@ public class FronController extends HttpServlet {
 		}
 		LOG.trace("Forward address --> " + forward.getPath());
 
-
 		// go to forward
 		if (forward instanceof GetRequest) {
 			LOG.debug("Controller finished, now go to forward address --> " + forward.getPath());
 			request.getRequestDispatcher(forward.getPath()).forward(request, response);
-		}else if(forward instanceof PostRequest) {
+		} else if (forward instanceof PostRequest) {
 			LOG.debug("Controller finished, now go to redirect address --> " + forward.getPath());
 			response.sendRedirect(forward.getPath());
 		}

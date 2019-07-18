@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ua.nure.nechaev.summarytask.Path;
 import ua.nure.nechaev.summarytask.db.dao.FlightsDAO;
 import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
+import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
 
 public class FlightDeleteComand extends Command {
@@ -23,7 +25,7 @@ public class FlightDeleteComand extends Command {
 		int flightNumb = Integer.parseInt(request.getParameter("id"));
 		LOG.trace("deleting flight with id:" + flightNumb);
 		flightDAO.delete(flightNumb);
-		return null;
+		return new PostRequest(Path.SHOW_FLIGHTS_LIST);
 	}
 
 }

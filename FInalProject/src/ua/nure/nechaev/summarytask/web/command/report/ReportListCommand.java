@@ -20,9 +20,13 @@ public class ReportListCommand extends Command {
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
+		try {
 		ReportDAO reportDAO = new ReportDAO();
 		List<Report> reports = reportDAO.getAllPending();
 		request.setAttribute("reports", reports);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return new GetRequest(Path.PAGE_LIST_REPORTS);
 	}
 

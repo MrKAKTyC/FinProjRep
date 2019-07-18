@@ -23,7 +23,7 @@
 				<td>${crewMember.getWorker().getWorkerName() }</td>
 				<td>${crewMember.getWorker().getWorkerSpecialization() }</td>
 				<td>
-					<form action="/Controller?command=crewDelete&id=${param.id }"
+					<form action="./Controller?command=crewDelete&id=${param.id }"
 						method="POST">
 						<input type="submit" value="X">
 					</form>
@@ -40,7 +40,7 @@
 				<td>${worker.getWorkerSpecialization() }</td>
 				<td>
 					<form
-						action="/Controller?command=crewAddNew&flightId=${param.id }&workerId=${worker.getWorkerId() }"
+						action="./Controller?command=crewAddNew&flightId=${param.id }&workerId=${worker.getWorkerId() }"
 						method="POST">
 						<input type="submit" value="+">
 					</form>
@@ -49,7 +49,7 @@
 		</c:forEach>
 	</table>
 	Send Report:
-	<form action="/Controller?command=reportAdd" method="POST">
+	<form action="./Controller?command=reportAdd" method="POST">
 		<label>Problem description</label><br />
 		<textarea rows="10" cols="20" name="reason"></textarea>
 		<input type="hidden" value="${param.id }" name="flightID">

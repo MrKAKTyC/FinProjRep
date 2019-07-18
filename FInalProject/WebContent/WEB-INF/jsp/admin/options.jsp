@@ -17,7 +17,7 @@
 		onclick="document.location.href='./Controller?command=managerList'">Show
 		managers</button>
 	<button
-		onclick="document.location.href='./Controller?command=reposList'">Show
+		onclick="document.location.href='./Controller?command=reportList'">Show
 		reports</button>
 </body>
 </html>

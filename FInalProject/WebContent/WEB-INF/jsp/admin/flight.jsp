@@ -33,9 +33,9 @@ ${requestScope.flightBean.toString() }
 		</select>
 		
 		<label>date</label>
-		<input type="date" name="date">
+		<input type="date" name="date" value="${flightBean.getDate() }">
 		<label>time</label>
-		<input type="time" name="time">
+		<input type="time" name="time" value="${flightBean.getTime() }">
 		
 		<label>Flight status</label>
 		<select name="status">

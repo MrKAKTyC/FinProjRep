@@ -27,19 +27,20 @@ public class FlightUpdateComand extends Command {
 		int fromId = Integer.parseInt(request.getParameter("dept_air"));
 		int toId = Integer.parseInt(request.getParameter("ariv_air"));
 		FlightStatus status = FlightStatus.getStatus(Integer.parseInt(request.getParameter("status")));
-		String dateTime = request.getParameter("time");
+		String time = request.getParameter("time");
+		String date = request.getParameter("date");
 		String name = request.getParameter("name");
 		Flight flight = new Flight();
 		flight.setNumber(flightNumb);
 		flight.setFromId(fromId);
 		flight.setToId(toId);
-		flight.setDepatureDate(dateTime);
+		flight.setDepatureDate(date + " " + time);
 		flight.setFlightName(name);
 		flight.setStatus(status);
 		FlightsDAO flightDAO = new FlightsDAO();
 		LOG.trace("updating flight " + flight);
 		flightDAO.update(flight);
-		return new PostRequest(Path.PAGE_ADMIN_MENU);
+		return new PostRequest(Path.SHOW_FLIGHTS_LIST);
 	}
 
 }
