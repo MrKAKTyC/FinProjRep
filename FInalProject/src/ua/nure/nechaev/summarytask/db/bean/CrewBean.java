@@ -14,7 +14,7 @@ public class CrewBean {
 		CrewBean crewBean = new CrewBean();
 		crewBean.id = crew.getCrewId();
 		try {
-			crewBean.flight = FlightBean.getInstance(new FlightsDAO().get(crew.getFlightId()));
+			crewBean.flight = new FlightsDAO().get(crew.getFlightId());
 			crewBean.worker = WorkerBean.getInstance(new WorkerDAO().get(crew.getWorkerId()));
 		} catch (DBException e) {
 			// TODO Auto-generated catch block

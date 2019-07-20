@@ -31,7 +31,7 @@ public class ReportUpdateCommand extends Command {
 			report.setStatus(ReportStatus.rejected.getIntVal());
 		}
 		reportDAO.updateStatus(report);
-		return new PostRequest(Path.SHOW_ADMIN_MENU);
+		return new PostRequest(Path.SHOW_REPORTS_LIST);
 	}
 
 }

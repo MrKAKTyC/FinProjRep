@@ -23,6 +23,7 @@ public class CrewAddNewCommand extends Command {
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
+		String referer = request.getHeader("referer");
 		try {
 			int flightId = Integer.parseInt(request.getParameter("flightId"));
 			int workerId = Integer.parseInt(request.getParameter("workerId"));
@@ -36,7 +37,7 @@ public class CrewAddNewCommand extends Command {
 			e.printStackTrace();
 			// TODO: handle exception
 		}
-		return new PostRequest(Path.SHOW_ADMIN_MENU);
+		return new PostRequest(referer);
 	}
 
 }

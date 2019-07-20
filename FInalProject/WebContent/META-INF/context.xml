@@ -1,10 +1,8 @@
-<!-- Change the lines below according your RDBMS and DB -->
-
 <Context>
 
 	<Resource name="jdbc/ST4DB" auth="Container"
 		type="javax.sql.DataSource" maxActive="100" maxIdle="30"
-		maxWait="10000" username="root" password=""
+		maxWait="5" username="root" password=""
 		driverClassName="com.mysql.cj.jdbc.Driver" defaultAutoCommit="false"
 		defaultTransactionIsolation="READ_COMMITTED"
 		connectionProperties="useUnicode=yes;characterEncoding=utf8;"

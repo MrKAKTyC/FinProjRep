@@ -28,7 +28,7 @@ public class WorkerUpdateComand extends Command {
 		worker.setName(workerName);
 		worker.setSpec(workerSpec);
 		workerDAO.update(worker);
-		return new PostRequest(Path.SHOW_ADMIN_MENU);
+		return new PostRequest(Path.SHOW_WORKERS_LIST);
 	}
 
 }

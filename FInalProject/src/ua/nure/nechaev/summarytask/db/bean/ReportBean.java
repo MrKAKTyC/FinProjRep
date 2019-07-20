@@ -16,7 +16,7 @@ public class ReportBean {
 		reportBean.id = report.getId();
 		FlightsDAO flightDAO = new FlightsDAO();
 		try {
-			reportBean.flight = FlightBean.getInstance(flightDAO.get(report.getFlightId()));
+			reportBean.flight = flightDAO.get(report.getFlightId());
 		} catch (DBException e) {
 			e.printStackTrace();
 		}

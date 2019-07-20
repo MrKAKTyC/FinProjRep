@@ -20,15 +20,15 @@ import ua.nure.nechaev.summarytask.web.requests.Request;
 /**
  * Servlet implementation class FronController
  */
-@WebServlet("/Controller")
-public class FronController extends HttpServlet {
+@WebServlet(urlPatterns = "/Controller", name = "FrontController")
+public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = Logger.getLogger(FronController.class);
+	private static final Logger LOG = Logger.getLogger(FrontController.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FronController() {
+	public FrontController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

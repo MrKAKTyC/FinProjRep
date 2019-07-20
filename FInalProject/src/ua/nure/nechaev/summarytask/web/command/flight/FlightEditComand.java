@@ -11,7 +11,6 @@ import ua.nure.nechaev.summarytask.db.bean.FlightBean;
 import ua.nure.nechaev.summarytask.db.dao.AirportDAO;
 import ua.nure.nechaev.summarytask.db.dao.FlightStatusDAO;
 import ua.nure.nechaev.summarytask.db.dao.FlightsDAO;
-import ua.nure.nechaev.summarytask.db.entity.Flight;
 import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.GetRequest;
@@ -26,8 +25,8 @@ public class FlightEditComand extends Command {
 		FlightsDAO flightsDAO = new FlightsDAO();
 		FlightStatusDAO statusesDAO = new FlightStatusDAO();
 		AirportDAO airportsDAO = new AirportDAO();
-		Flight flight = flightsDAO.get(flightNumb);
-		request.setAttribute("flightBean", FlightBean.getInstance(flight));
+		FlightBean flight = flightsDAO.get(flightNumb);
+		request.setAttribute("flightBean", flight);
 		request.setAttribute("flight", flight);
 		request.setAttribute("airports", airportsDAO.getAll());
 		request.setAttribute("statuses", statusesDAO.getAll());

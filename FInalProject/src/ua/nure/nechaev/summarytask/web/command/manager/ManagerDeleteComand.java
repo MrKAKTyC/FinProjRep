@@ -18,10 +18,16 @@ public class ManagerDeleteComand extends Command {
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
-		int managerId = Integer.parseInt(request.getParameter("id"));
+
+		int managerId;
+		try {
+		managerId = Integer.parseInt(request.getParameter("id"));
+		} catch (NumberFormatException e) {
+			return new PostRequest(Path.PAGE_ERROR_PAGE);
+		}
 		ManagerDAO managerDAO = new ManagerDAO();
 		managerDAO.deleteManager(managerId);
-		return new PostRequest(Path.SHOW_ADMIN_MENU);
+		return new PostRequest(Path.SHOW_MANAGERS_LIST);
 	}
 
 }

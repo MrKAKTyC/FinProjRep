@@ -14,4 +14,22 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag-file>
+		<name>flights</name>
+		<body-content>scriptless</body-content>
+		<path>/WEB-INF/tags/flights.tag</path>
+		<attribute>
+			<name>flightsList</name>
+			<type>java.util.List</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag-file>
+	<tag-file>
+		<name>adminWrap</name>
+		<body-content>JSP</body-content>
+		<path>/WEB-INF/tags/adminWrap.tag</path>
+		<attribute>
+			<name>flightsList</name>
+		</attribute>
+	</tag-file>
 </taglib>

@@ -23,12 +23,12 @@ public class ManagerUpdateComand extends Command {
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
 		int managerId = Integer.parseInt(request.getParameter("id"));
-		String login = request.getParameter("login");
 		int accessLevel = Integer.parseInt(request.getParameter("level"));
+		String login = request.getParameter("login");
 		LOG.trace("Update manager with id " + managerId + " seting login: "+login+" and AL "+accessLevel);
 		ManagerDAO managerDAO = new ManagerDAO();
 		managerDAO.updateManager(managerId, login, accessLevel);
-		return new PostRequest(Path.SHOW_ADMIN_MENU);
+		return new PostRequest(Path.SHOW_MANAGERS_LIST);
 	}
 
 }

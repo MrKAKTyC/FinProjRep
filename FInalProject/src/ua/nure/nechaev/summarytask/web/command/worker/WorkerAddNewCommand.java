@@ -31,7 +31,7 @@ public class WorkerAddNewCommand extends Command {
 		LOG.trace("Creating new worker "+worker);
 		WorkerDAO workerDAO = new WorkerDAO();
 		workerDAO.create(worker);
-		return new PostRequest(Path.SHOW_ADMIN_MENU);
+		return new PostRequest(Path.SHOW_WORKERS_LIST);
 	}
 
 }

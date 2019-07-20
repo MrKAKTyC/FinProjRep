@@ -23,13 +23,14 @@ public class CrewDeleteComand extends Command {
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
+		String referer = request.getHeader("referer");
 		int crewId = Integer.parseInt(request.getParameter("id"));
 		CrewDAO crewDAO = new CrewDAO();
 		FlightCrew crewMember = new FlightCrew();
 		crewMember.setCrewId(crewId);
 		LOG.trace("removing crew member "+crewId);
 		crewDAO.removeCrewMember(crewMember );
-		return new PostRequest(Path.SHOW_ADMIN_MENU);
+		return new PostRequest(referer);
 	}
 
 }

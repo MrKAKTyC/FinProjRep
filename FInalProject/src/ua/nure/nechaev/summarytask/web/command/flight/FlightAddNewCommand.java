@@ -41,7 +41,7 @@ public class FlightAddNewCommand extends Command {
 		FlightsDAO flightDAO = new FlightsDAO();
 		LOG.trace("adding new flight "+flight);
 		flightDAO.create(flight);
-		return new PostRequest(Path.SHOW_ADMIN_MENU);
+		return new PostRequest(Path.SHOW_FLIGHTS_LIST);
 	}
 
 }

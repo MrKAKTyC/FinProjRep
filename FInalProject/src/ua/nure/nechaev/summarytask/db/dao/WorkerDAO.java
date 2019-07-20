@@ -18,15 +18,15 @@ import ua.nure.nechaev.summarytask.exception.DBException;
 public class WorkerDAO {
 	private static final Logger LOG = Logger.getLogger(WorkerDAO.class);
 	
-	private static String SELECT_ALL_AVAIBLE = "SELECT workers.* FROM workers LEFT JOIN (SELECT * FROM flightcrew WHERE flightcrew.crewID = ? ) AS SF ON workers.workerId = SF.workerID WHERE SF.crewID IS NULL";
+	private static String SELECT_ALL_AVAIBLE = "SELECT workers.* FROM workers LEFT JOIN (SELECT * FROM flightcrew WHERE flightcrew.flightID  = ? ) AS SF ON workers.workerId = SF.workerID WHERE SF.crewID IS NULL";
 	private static String SELECT_ALL_WORKERS = "SELECT * FROM workers";
 	private static String SELECT_WORKER = "SELECT * FROM workers WHERE workerId = ?";
 	private static String INSERT_WORKER = "INSERT INTO workers (workerName, workerSpec) VALUES (?, ?)";
 	private static String UPDATE_WORKER = "UPDATE workers SET workerName = ?, workerSpec = ? WHERE workerId = ? ";
 	private static String DELETE_WORKER = "DELETE FROM workers WHERE workerId = ?";
 
-	public List<Worker> getAll() {
-		List<Worker> workers = new LinkedList<Worker>();
+	public List<WorkerBean> getAll() {
+		List<WorkerBean> workers = new LinkedList<WorkerBean>();
 		try (Connection con = DBManager.getInstance().getConnection()) {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(SELECT_ALL_WORKERS);
@@ -34,10 +34,9 @@ public class WorkerDAO {
 				Worker worker = new Worker();
 				worker.setId(rs.getInt("workerId"));
 				worker.setName(rs.getString("workerName"));
-//				LOG.trace("spec from db = "+rs.getInt("workerSpec"));
 				worker.setSpec(rs.getInt("workerSpec"));
 				LOG.trace("selected worker : " + worker);
-				workers.add(worker);
+				workers.add(WorkerBean.getInstance(worker));
 			}
 		} catch (DBException | SQLException e) {
 			LOG.error(e);
@@ -51,6 +50,7 @@ public class WorkerDAO {
 		try (Connection con = DBManager.getInstance().getConnection()) {
 			PreparedStatement pstmt = con.prepareStatement(SELECT_ALL_AVAIBLE);
 			pstmt.setInt(1, forFlight);
+			LOG.trace(pstmt);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Worker worker = new Worker();

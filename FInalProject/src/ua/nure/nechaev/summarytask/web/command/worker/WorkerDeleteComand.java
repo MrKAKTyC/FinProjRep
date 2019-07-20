@@ -25,7 +25,7 @@ public class WorkerDeleteComand extends Command {
 		WorkerDAO workerDAO = new WorkerDAO();
 		LOG.trace("deleting worker with id " + workerId);
 		workerDAO.delete(workerId);
-		return new PostRequest(Path.SHOW_ADMIN_MENU);
+		return new PostRequest(Path.SHOW_WORKERS_LIST);
 	}
 
 }

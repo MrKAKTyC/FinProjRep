@@ -51,7 +51,7 @@ public class LoginCommand extends Command {
 		Request forward = new GetRequest(Path.PAGE_ERROR_PAGE);
 
 		if (userRole == AccessLevel.Administrator) {
-			forward = new PostRequest(Path.SHOW_ADMIN_MENU);
+			forward = new PostRequest(Path.SHOW_FLIGHTS_LIST);
 		}
 
 		if (userRole == AccessLevel.Dispatcher) {

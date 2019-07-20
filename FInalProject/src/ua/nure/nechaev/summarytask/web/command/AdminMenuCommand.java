@@ -16,7 +16,7 @@ public class AdminMenuCommand extends Command {
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
-		return new GetRequest(Path.PAGE_ADMIN_MENU);
+		return new GetRequest(Path.PAGE_LIST_FLIGHTS);
 	}
 
 }

@@ -35,8 +35,13 @@ public class CommandContainer {
 	private static Map<String, Command> commands = new TreeMap<String, Command>();
 
 	static {
-		// common commands
+		//public
 		commands.put("login", new LoginCommand());
+		commands.put("flights", new FlightsCommand());
+		
+		//secured
+		// common commands
+		commands.put("logout", new LogoutCommand());
 		commands.put("adminMenu", new AdminMenuCommand());
 		//manager commands
 		commands.put("managerList", new ManagerListCommand());
@@ -51,7 +56,6 @@ public class CommandContainer {
 		commands.put("workerUpdate", new WorkerUpdateComand());
 		commands.put("workerDelete", new WorkerDeleteComand());
 		//flight commands
-		commands.put("flights", new FlightsCommand());
 		commands.put("flightList", new FlightListCommand());
 		commands.put("flightAddNew", new FlightAddNewCommand());
 		commands.put("flightEdit", new FlightEditComand());

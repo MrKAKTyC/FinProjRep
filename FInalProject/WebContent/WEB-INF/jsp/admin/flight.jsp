@@ -1,24 +1,24 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "max" uri = "/WEB-INF/taglib/maxtags.tld"%>
+<%@include file="/WEB-INF/jspf/imports.jspf"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Edit flight</title>
 </head>
 <body>
-${requestScope.flightBean.toString() }
+	<%@include file="/WEB-INF/jspf/header.jspf"%>
 	<form action="./Controller?command=flightUpdate" method="POST">
-		<input type="hidden" name="id" value="${requestScope.flight.getNumber() }">
+		<input type="hidden" name="id" value="${requestScope.flight.id }">
 		<label for="name">Flight Name</label>
-		<input name="name" value="${requestScope.flight.getFlightName() }">
+		<input name="name" value="${requestScope.flight.name }">
 		
 		<label>Depature Airport</label>
 		<select name="dept_air">
 		<c:forEach var="airport" items="${airports}">
-			<option value="${airport.getId()}" <c:if test="${airport.getId() eq requestScope.flight.getFromId()}">selected</c:if>>
-				${airport.getAirportName() }
+			<option value="${airport.getId()}" <c:if test="${airport.getId() eq requestScope.flight.from.getId()}">selected</c:if>>
+				${airport.airportName }
 			</option>
 		</c:forEach>
 		</select>
@@ -26,8 +26,8 @@ ${requestScope.flightBean.toString() }
 		<label>Arival Airport</label>
 		<select name="ariv_air">
 		<c:forEach var="airport" items="${airports}">
-			<option value="${airport.getId()}" <c:if test="${airport.getId() eq requestScope.flight.getFromId()}">selected</c:if>>
-				${airport.getAirportName() }
+			<option value="${airport.getId()}" <c:if test="${airport.getId() eq requestScope.flight.from.getId()}">selected</c:if>>
+				${airport.airportName }
 			</option>
 		</c:forEach>
 		</select>
@@ -48,7 +48,7 @@ ${requestScope.flightBean.toString() }
 		<input type="submit">
 	</form>
 	<form
-		action="./Controller?command=flightDelete&id=${requestScope.flight.getNumber() }"
+		action="./Controller?command=flightDelete&id=${requestScope.flight.id }"
 		method="POST">
 		<input type="submit" value="delete">
 	</form>
