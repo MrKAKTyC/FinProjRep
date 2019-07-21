@@ -1,7 +1,7 @@
 <Context>
 
 	<Resource name="jdbc/ST4DB" auth="Container"
-		type="javax.sql.DataSource" maxActive="100" maxIdle="30"
+		type="javax.sql.DataSource" maxActive="3" maxIdle="3"
 		maxWait="5" username="root" password=""
 		driverClassName="com.mysql.cj.jdbc.Driver" defaultAutoCommit="false"
 		defaultTransactionIsolation="READ_COMMITTED"

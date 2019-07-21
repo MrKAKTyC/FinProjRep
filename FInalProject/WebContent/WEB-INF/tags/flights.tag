@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="uk" />
 <fmt:setBundle basename="resources" />
-<table>
+<table class="table table-striped">
 	<tr>
 		<th><a
 			href="./Controller?command=flights&action=sort&field=flightNumb">

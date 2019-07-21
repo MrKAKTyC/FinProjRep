@@ -19,12 +19,12 @@ public class FlightStatusDAO {
 
 	public List<FlightStatus> getAll() throws DBException {
 		List<FlightStatus> statuses = new LinkedList<FlightStatus>();
-		try {
-			Connection con = DBManager.getInstance().getConnection();
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(SELECT_FLIGHTSTATUSES);
-			while (rs.next()) {
-				statuses.add(FlightStatus.valueOf(rs.getString("statusName")));
+		try (Connection con = DBManager.getInstance().getConnection()) {
+			try (Statement stmt = con.createStatement()) {
+				ResultSet rs = stmt.executeQuery(SELECT_FLIGHTSTATUSES);
+				while (rs.next()) {
+					statuses.add(FlightStatus.valueOf(rs.getString("statusName")));
+				}
 			}
 		} catch (SQLException e) {
 			LOG.error(e.getMessage(), e);

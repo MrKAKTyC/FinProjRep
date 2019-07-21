@@ -23,15 +23,16 @@ public class AirportDAO {
 	public List<Airport> getAll() {
 		List<Airport> airports = new LinkedList<Airport>();
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(SELECT_ALL_AIRPORTS);
-			while (rs.next()) {
-				Airport airport = new Airport();
-				airport.setId(rs.getInt("airportID"));
-				airport.setCountry(rs.getString("airportCountry"));
-				airport.setCity(rs.getString("airportCity"));
-				airport.setAirportName(rs.getString("airportName"));
-				airports.add(airport);
+			try (Statement stmt = con.createStatement()) {
+				ResultSet rs = stmt.executeQuery(SELECT_ALL_AIRPORTS);
+				while (rs.next()) {
+					Airport airport = new Airport();
+					airport.setId(rs.getInt("airportID"));
+					airport.setCountry(rs.getString("airportCountry"));
+					airport.setCity(rs.getString("airportCity"));
+					airport.setAirportName(rs.getString("airportName"));
+					airports.add(airport);
+				}
 			}
 		} catch (DBException | SQLException e) {
 			LOG.error(e);
@@ -43,15 +44,16 @@ public class AirportDAO {
 	public Airport get(int id) throws DBException {
 		Airport airport = null;
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement(SELECT_AIRPORT);
-			pstmt.setInt(1, id);
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				airport = new Airport();
-				airport.setId(id);
-				airport.setCountry(rs.getString("airportCountry"));
-				airport.setCity(rs.getString("airportCity"));
-				airport.setAirportName(rs.getString("airportName"));
+			try (PreparedStatement pstmt = con.prepareStatement(SELECT_AIRPORT)) {
+				pstmt.setInt(1, id);
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					airport = new Airport();
+					airport.setId(id);
+					airport.setCountry(rs.getString("airportCountry"));
+					airport.setCity(rs.getString("airportCity"));
+					airport.setAirportName(rs.getString("airportName"));
+				}
 			}
 		} catch (SQLException e) {
 			LOG.error(e);

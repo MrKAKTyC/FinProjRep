@@ -30,7 +30,7 @@
 					<td>${manager.id}</td>
 					<td>${manager.login}</td>
 					<td>${manager.level}</td>
-					<td><button
+					<td><button class="btn btn-primary"
 							onclick='document.location.href="./Controller?command=managerEdit&id=${manager.id}"'><fmt:message key="button.mod" /></button></td>
 				</tr>
 			</c:forEach>

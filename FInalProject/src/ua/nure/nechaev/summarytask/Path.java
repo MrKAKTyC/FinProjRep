@@ -18,4 +18,6 @@ public final class Path {
 	public static final String SHOW_WORKERS_LIST = "./Controller?command=workerList";
 	public static final String SHOW_MANAGERS_LIST = "./Controller?command=managerList";
 	public static final String SHOW_REPORTS_LIST = "./Controller?command=reportList";
+	
+	public static final String SHOW_INDEX = "./Controller?command=flights";
 }

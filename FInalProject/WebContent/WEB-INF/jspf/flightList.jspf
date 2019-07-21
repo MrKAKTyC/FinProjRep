@@ -1,34 +1,65 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<table>
-	<tr>
-		<th><a
-			href="./Controller?command=flights&action=sort&field=flightNumb">Flight
-				Number</a></th>
-		<th><a
-			href="./Controller?command=flights&action=sort&field=flightName">Flight
-				Name</a></th>
-		<th>Departure Point</th>
-		<th>Arrival Point</th>
-		<th>Date</th>
-		<th>Time</th>
-		<th>Flight Status</th>
-		<th>Action</th>
-	</tr>
-	<c:forEach items="${requestScope.flights}" var="flight">
+<table class="table table-striped">
+	<thead>
 		<tr>
-			<td>${flight.getId()}</td>
-			<td>${flight.getName()}</td>
-			<td>${flight.getFrom()}</td>
-			<td>${flight.getTo()}</td>
-			<td>${flight.getDate()}</td>
-			<td>${flight.getTime()}</td>
-			<td>${flight.getStatus()}</td>
-			<td><button
-					onclick='document.location.href="./Controller?command=flightEdit&id=${flight.getId()}"'>Mod
-				</button>
-				<button
-					onclick='document.location.href="./Controller?command=crewList&id=${flight.getId()}"'>Crew
-				</button></td>
+			<th><a
+				href="./Controller?command=flights&action=sort&field=flightNumb">Flight
+					Number</a></th>
+			<th><a
+				href="./Controller?command=flights&action=sort&field=flightName">Flight
+					Name</a></th>
+			<th>Departure Point</th>
+			<th>Arrival Point</th>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Flight Status</th>
+			<th>Action</th>
 		</tr>
-	</c:forEach>
+	</thead>
+	<tbody>
+		<c:forEach items="${requestScope.flights}" var="flight">
+			<tr>
+				<td>${flight.getId()}</td>
+				<td>${flight.getName()}</td>
+				<td>${flight.getFrom()}</td>
+				<td>${flight.getTo()}</td>
+				<td>${flight.getDate()}</td>
+				<td>${flight.getTime()}</td>
+				<td>${flight.getStatus()}</td>
+				<td><button
+						onclick='document.location.href="./Controller?command=flightEdit&id=${flight.getId()}"'>Mod
+					</button>
+					<button
+						onclick='document.location.href="./Controller?command=crewList&id=${flight.getId()}"'>Crew
+					</button></td>
+			</tr>
+		</c:forEach>
+	</tbody>
 </table>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+        <td>john@example.com</td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>mary@example.com</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>july@example.com</td>
+      </tr>
+    </tbody>
+  </table>

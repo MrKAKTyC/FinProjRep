@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ua.nure.nechaev.summarytask.Path;
+import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.command.CommandContainer;
 import ua.nure.nechaev.summarytask.web.requests.GetRequest;
@@ -72,14 +73,20 @@ public class FrontController extends HttpServlet {
 		}
 		LOG.trace("Forward address --> " + forward.getPath());
 
-		// go to forward
-		if (forward instanceof GetRequest) {
-			LOG.debug("Controller finished, now go to forward address --> " + forward.getPath());
-			request.getRequestDispatcher(forward.getPath()).forward(request, response);
-		} else if (forward instanceof PostRequest) {
-			LOG.debug("Controller finished, now go to redirect address --> " + forward.getPath());
-			response.sendRedirect(forward.getPath());
+		try {
+			forward.resend(request, response);
+		} catch (AppException e) {
+			LOG.error(e.getMessage(), e);
+			
 		}
+		// go to forward
+//		if (forward instanceof GetRequest) {
+//			LOG.debug("Controller finished, now go to forward address --> " + forward.getPath());
+//			request.getRequestDispatcher(forward.getPath()).forward(request, response);
+//		} else if (forward instanceof PostRequest) {
+//			LOG.debug("Controller finished, now go to redirect address --> " + forward.getPath());
+//			response.sendRedirect(forward.getPath());
+//		}
 	}
 
 }

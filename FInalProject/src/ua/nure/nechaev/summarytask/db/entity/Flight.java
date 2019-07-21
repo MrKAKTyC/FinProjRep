@@ -57,11 +57,12 @@ public class Flight {
 	public void setStatus(FlightStatus status) {
 		this.status = status;
 	}
-	
+
 	@Override
 	public String toString() {
-		Formatter f = new Formatter();
-		f.format("%d %d %d %s %s %s", number, fromId, toId, depatureDate, flightName, status.toString());
-		return f.toString();
+		try (Formatter f = new Formatter()) {
+			f.format("%d %d %d %s %s %s", number, fromId, toId, depatureDate, flightName, status.toString());
+			return f.toString();
+		}
 	}
 }

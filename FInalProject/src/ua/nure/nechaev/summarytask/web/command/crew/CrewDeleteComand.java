@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import ua.nure.nechaev.summarytask.Path;
 import ua.nure.nechaev.summarytask.db.dao.CrewDAO;
 import ua.nure.nechaev.summarytask.db.entity.FlightCrew;
 import ua.nure.nechaev.summarytask.exception.AppException;

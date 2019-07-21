@@ -36,16 +36,17 @@ public class FlightsDAO {
 	public List<FlightBean> getSorted(String field) throws DBException {
 		List<FlightBean> flights = new LinkedList<FlightBean>();
 		String sort = null;
-		if(field.equalsIgnoreCase("flightNumb")) {
+		if (field.equalsIgnoreCase("flightNumb")) {
 			sort = SORT_BY_NUMBER;
 		} else {
 			sort = SORT_BY_NAME;
 		}
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			Statement pstmt = con.createStatement();
-			LOG.trace(pstmt);
-			ResultSet rs = pstmt.executeQuery(sort);
-			flights = getFromQuerry(rs);
+			try (Statement pstmt = con.createStatement()) {
+				LOG.trace(pstmt);
+				ResultSet rs = pstmt.executeQuery(sort);
+				flights = getFromQuerry(rs);
+			}
 		} catch (DBException | SQLException e) {
 			LOG.error(e.getMessage(), e);
 			throw new DBException(e.getMessage(), e);
@@ -56,16 +57,17 @@ public class FlightsDAO {
 	public List<FlightBean> Search(Airport from, Airport to, String date) throws DBException {
 		List<FlightBean> flights = new LinkedList<FlightBean>();
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement(FIND_BY_DATE_AND_ENDPOINTS);
-			
-			pstmt.setString(1, from.getCity());
-			pstmt.setString(2, from.getCountry());
-			pstmt.setString(3, to.getCity());
-			pstmt.setString(4, to.getCountry());
-			pstmt.setString(5, date);
-			LOG.trace(pstmt);
-			ResultSet rs = pstmt.executeQuery();
-			flights = getFromQuerry(rs);
+			try (PreparedStatement pstmt = con.prepareStatement(FIND_BY_DATE_AND_ENDPOINTS)) {
+
+				pstmt.setString(1, from.getCity());
+				pstmt.setString(2, from.getCountry());
+				pstmt.setString(3, to.getCity());
+				pstmt.setString(4, to.getCountry());
+				pstmt.setString(5, date);
+				LOG.trace(pstmt);
+				ResultSet rs = pstmt.executeQuery();
+				flights = getFromQuerry(rs);
+			}
 		} catch (DBException | SQLException e) {
 			e.printStackTrace();
 			throw new DBException(e.getMessage(), e);
@@ -76,9 +78,10 @@ public class FlightsDAO {
 	public List<FlightBean> getAll() throws DBException {
 		List<FlightBean> flights = new LinkedList<FlightBean>();
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(SELECT_ALL_FLIGHTS);
-			flights = getFromQuerry(rs);
+			try (Statement stmt = con.createStatement()) {
+				ResultSet rs = stmt.executeQuery(SELECT_ALL_FLIGHTS);
+				flights = getFromQuerry(rs);
+			}
 		} catch (DBException | SQLException e) {
 			e.printStackTrace();
 			throw new DBException(e.getMessage(), e);
@@ -90,18 +93,19 @@ public class FlightsDAO {
 		Flight flight = null;
 		FlightBean flightBean = null;
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement(SELECT_FLIGHT);
-			pstmt.setInt(1, numb);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				flight = new Flight();
-				flight.setDepatureDate(rs.getString("depatureDate"));
-				flight.setFlightName(rs.getString("flightName"));
-				flight.setFromId(rs.getInt("fromId"));
-				flight.setToId(rs.getInt("toId"));
-				flight.setNumber(rs.getInt("flightNumb"));
-				flight.setStatus(FlightStatus.getStatus(rs.getInt("statusId")));
-				flightBean = FlightBean.getInstance(flight);
+			try (PreparedStatement pstmt = con.prepareStatement(SELECT_FLIGHT)) {
+				pstmt.setInt(1, numb);
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					flight = new Flight();
+					flight.setDepatureDate(rs.getString("depatureDate"));
+					flight.setFlightName(rs.getString("flightName"));
+					flight.setFromId(rs.getInt("fromId"));
+					flight.setToId(rs.getInt("toId"));
+					flight.setNumber(rs.getInt("flightNumb"));
+					flight.setStatus(FlightStatus.getStatus(rs.getInt("statusId")));
+					flightBean = FlightBean.getInstance(flight);
+				}
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
@@ -112,15 +116,16 @@ public class FlightsDAO {
 
 	public void create(Flight flight) throws DBException {
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement(INSERT_FLIGHT);
-			// fromId, toId, depatureDate, flightName, statusId
-			pstmt.setInt(1, flight.getFromId());
-			pstmt.setInt(2, flight.getToId());
-			pstmt.setString(3, flight.getDepatureDate());
-			pstmt.setString(4, flight.getFlightName());
-			pstmt.setInt(5, flight.getStatus().getId());
-			pstmt.executeUpdate();
-			con.commit();
+			try (PreparedStatement pstmt = con.prepareStatement(INSERT_FLIGHT)) {
+				// fromId, toId, depatureDate, flightName, statusId
+				pstmt.setInt(1, flight.getFromId());
+				pstmt.setInt(2, flight.getToId());
+				pstmt.setString(3, flight.getDepatureDate());
+				pstmt.setString(4, flight.getFlightName());
+				pstmt.setInt(5, flight.getStatus().getId());
+				pstmt.executeUpdate();
+				con.commit();
+			}
 		} catch (SQLException e) {
 			LOG.error(e);
 			throw new DBException();
@@ -130,15 +135,16 @@ public class FlightsDAO {
 
 	public void update(Flight flight) throws DBException {
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement(UPDATE_FLIGHT);
-			pstmt.setInt(1, flight.getFromId());
-			pstmt.setInt(2, flight.getToId());
-			pstmt.setString(3, flight.getDepatureDate());
-			pstmt.setString(4, flight.getFlightName());
-			pstmt.setInt(5, flight.getStatus().getId());
-			pstmt.setInt(6, flight.getNumber());
-			pstmt.executeUpdate();
-			con.commit();
+			try (PreparedStatement pstmt = con.prepareStatement(UPDATE_FLIGHT)) {
+				pstmt.setInt(1, flight.getFromId());
+				pstmt.setInt(2, flight.getToId());
+				pstmt.setString(3, flight.getDepatureDate());
+				pstmt.setString(4, flight.getFlightName());
+				pstmt.setInt(5, flight.getStatus().getId());
+				pstmt.setInt(6, flight.getNumber());
+				pstmt.executeUpdate();
+				con.commit();
+			}
 		} catch (SQLException e) {
 			LOG.error(e);
 			throw new DBException();
@@ -148,10 +154,11 @@ public class FlightsDAO {
 
 	public void delete(int id) throws DBException {
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement(DELETE_FLIGHT);
-			pstmt.setInt(1, id);
-			pstmt.executeUpdate();
-			con.commit();
+			try (PreparedStatement pstmt = con.prepareStatement(DELETE_FLIGHT)) {
+				pstmt.setInt(1, id);
+				pstmt.executeUpdate();
+				con.commit();
+			}
 		} catch (SQLException e) {
 			LOG.error(e);
 			throw new DBException();

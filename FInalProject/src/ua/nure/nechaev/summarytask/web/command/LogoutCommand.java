@@ -6,8 +6,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ua.nure.nechaev.summarytask.Path;
 import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.flight.FlightsCommand;
+import ua.nure.nechaev.summarytask.web.requests.GetRequest;
+import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
 
 public class LogoutCommand extends Command {
@@ -16,7 +19,8 @@ public class LogoutCommand extends Command {
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
 		request.getSession().removeAttribute("user");
-		return new FlightsCommand().execute(request, response);
+		return new GetRequest(Path.SHOW_INDEX);
+//		return new FlightsCommand().execute(request, response);
 	}
 
 }

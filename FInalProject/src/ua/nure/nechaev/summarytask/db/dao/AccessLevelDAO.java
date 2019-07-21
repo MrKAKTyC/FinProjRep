@@ -19,12 +19,12 @@ public class AccessLevelDAO {
 
 	public List<AccessLevel> getAccessLevels() throws DBException {
 		List<AccessLevel> levels = new LinkedList<AccessLevel>();
-		try {
-			Connection con = DBManager.getInstance().getConnection();
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(SELECT_ACCESSLEVELS);
-			while (rs.next()) {
-				levels.add(AccessLevel.valueOf(rs.getString("accessType")));
+		try (Connection con = DBManager.getInstance().getConnection()) {
+			try (Statement stmt = con.createStatement()) {
+				ResultSet rs = stmt.executeQuery(SELECT_ACCESSLEVELS);
+				while (rs.next()) {
+					levels.add(AccessLevel.valueOf(rs.getString("accessType")));
+				}
 			}
 		} catch (SQLException e) {
 			LOG.error(e.getMessage(), e);

@@ -9,8 +9,21 @@
 </head>
 <body>
 	<%@include file="/WEB-INF/jspf/header.jspf"%>
-	Add New
-	<form action="./Controller?command=flightAddNew" method="POST">
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+	  Add New
+	</button>
+	<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        	<form action="./Controller?command=flightAddNew" method="POST">
 		<label for="name">Flight Name</label>
 		<input name="name">
 		<label>Depature Airport</label>
@@ -37,6 +50,15 @@
 		</select>
 		<input type="submit">
 	</form>
-	All
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 	<max:flights flightsList="${requestScope.flights}"/>
 </body>
