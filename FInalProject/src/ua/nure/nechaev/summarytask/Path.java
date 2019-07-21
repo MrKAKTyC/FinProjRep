@@ -11,7 +11,7 @@ public final class Path {
 	public static final String PAGE_EDIT_WORKER = "/WEB-INF/jsp/admin/worker.jsp";
 	public static final String Page_EDIT_FLIGHT = "/WEB-INF/jsp/admin/flight.jsp";
 	public static final String PAGE_EDIT_CREW = "/WEB-INF/jsp/admin/crew.jsp";
-	public static final String INDEX_PAGE = "index.jsp";
+	public static final String INDEX_PAGE = "/WEB-INF/jsp/client/index.jsp";
 	
 	//commands
 	public static final String SHOW_FLIGHTS_LIST = "./Controller?command=flightList";

@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="max" uri="/WEB-INF/taglib/maxtags.tld"%>
 <%@include file="/WEB-INF/jspf/imports.jspf"%>
 <!DOCTYPE html>
@@ -9,31 +8,40 @@
 	</head>
 	<body>
 		<%@include file="/WEB-INF/jspf/header.jspf"%>
-		Add New
-		<form action="./Controller?command=addNewManager" method="POST">
-			<input name="login"> <input name="password" type="password">
-			<select name="level">
-				<option value="1"><fmt:message key="Administrator" /></option>
-				<option value="2"><fmt:message key="Dispatcher" /></option>
-			</select> <input type="submit" value="<fmt:message key="button.add" />">
-		</form>
-		All
-		<table>
-			<tr>
-				<th><fmt:message key="common_table.id" /></th>
-				<th><fmt:message key="admin_table.login" /></th>
-				<th><fmt:message key="admin_table.role" /></th>
-				<th><fmt:message key="common_table.action" /></th>
-			</tr>
-			<c:forEach items="${managers}" var="manager">
-				<tr>
-					<td>${manager.id}</td>
-					<td>${manager.login}</td>
-					<td>${manager.level}</td>
-					<td><button class="btn btn-primary"
-							onclick='document.location.href="./Controller?command=managerEdit&id=${manager.id}"'><fmt:message key="button.mod" /></button></td>
-				</tr>
-			</c:forEach>
-		</table>
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#myModal"><fmt:message key="button.addNew" /></button>
+	<div class="modal" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title"><fmt:message key="button.addNew" /></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form action="./Controller?command=addNewManager" method="POST">
+						<fmt:message key="admin_table.login" />
+						<input name="login" class="form-control">
+						<fmt:message key="admin_table.password" />
+						<input name="password" type="password" class="form-control">
+						<fmt:message key="admin_table.role" />
+						<select name="level" class="form-control">
+							<option value="1"><fmt:message key="Administrator" /></option>
+							<option value="2"><fmt:message key="Dispatcher" /></option>
+						</select>
+						<input type="submit" value="<fmt:message key="button.add" />">
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><fmt:message key="button.close" /></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<max:managers managersList="${managers}"/>
 	</body>
 </html>

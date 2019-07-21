@@ -1,10 +1,9 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ attribute name="flightsList" required="true" rtexprvalue="true"
 	type="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:setLocale value="uk" />
-<fmt:setBundle basename="resources" />
+
 <table class="table table-striped">
 	<tr>
 		<th><a
@@ -35,10 +34,10 @@
 			<td>${flight.getStatus()}</td>
 			<c:if test="${not empty user }">
 				<td>
-					<button onclick='document.location.href="./Controller?command=flightEdit&id=${flight.getId()}"'>
+					<button class="btn btn-primary" onclick='document.location.href="./Controller?command=flightEdit&id=${flight.getId()}"'>
 						<fmt:message key="button.mod" />
 					</button>
-					<button	onclick='document.location.href="./Controller?command=crewList&id=${flight.getId()}"'>
+					<button	class="btn btn-primary" onclick='document.location.href="./Controller?command=crewList&id=${flight.getId()}"'>
 						<fmt:message key="button.crew" />
 					</button>
 				</td>

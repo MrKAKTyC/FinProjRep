@@ -3,17 +3,6 @@
 	<jsp-version>2.0</jsp-version>
 	<short-name>Example TLD</short-name>
 
-	<tag>
-		<name>Hello</name>
-		<tag-class>ua.nure.nechaev.summarytask.tags.FlightListTag</tag-class>
-		<body-content>empty</body-content>
-
-		<attribute>
-			<name>flights</name>
-			<type>java.util.List</type>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
 	<tag-file>
 		<name>flights</name>
 		<body-content>scriptless</body-content>
@@ -25,11 +14,23 @@
 		</attribute>
 	</tag-file>
 	<tag-file>
-		<name>adminWrap</name>
-		<body-content>JSP</body-content>
-		<path>/WEB-INF/tags/adminWrap.tag</path>
+		<name>managers</name>
+		<body-content>scriptless</body-content>
+		<path>/WEB-INF/tags/managers.tag</path>
 		<attribute>
-			<name>flightsList</name>
+			<name>managersList</name>
+			<type>java.util.List</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag-file>
+	<tag-file>
+		<name>workers</name>
+		<body-content>scriptless</body-content>
+		<path>/WEB-INF/tags/workers.tag</path>
+		<attribute>
+			<name>workersList</name>
+			<type>java.util.List</type>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag-file>
 </taglib>

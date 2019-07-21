@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "max" uri = "/WEB-INF/taglib/maxtags.tld"%>
 <%@include file="/WEB-INF/jspf/imports.jspf"%>
 <!DOCTYPE html>

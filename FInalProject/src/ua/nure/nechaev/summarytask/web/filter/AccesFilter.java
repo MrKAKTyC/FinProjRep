@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -39,19 +40,22 @@ public class AccesFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		LOG.debug("Filter starts");
-
 		if (accessAllowed(request)) {
-			LOG.debug("Filter finished");
-			chain.doFilter(request, response);
+			String requestEncoding = request.getCharacterEncoding();
+			LOG.debug("input enc ->" + requestEncoding);
+			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
+			chain.doFilter(request, response);
+			
 		} else {
 			String errorMessasge = "You do not have permission to access the requested resource";
 
 			request.setAttribute("errorMessage", errorMessasge);
 			LOG.trace("Set the request attribute: errorMessage --> " + errorMessasge);
 
-			request.getRequestDispatcher(Path.INDEX_PAGE).forward(request, response);
+			((HttpServletResponse) response).sendRedirect(Path.SHOW_INDEX);
 		}
+		LOG.debug("Filter finished");
 	}
 
 	private boolean accessAllowed(ServletRequest request) {

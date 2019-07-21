@@ -33,8 +33,7 @@ public class CrewAddNewCommand extends Command {
 			LOG.trace("adding worker" + workerId + "to flight " + flightId);
 			crewDAO.addCrewMember(crewMember);
 		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
+			LOG.error(e);
 		}
 		return new PostRequest(referer);
 	}

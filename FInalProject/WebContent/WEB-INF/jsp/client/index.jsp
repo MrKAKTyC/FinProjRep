@@ -1,20 +1,20 @@
-<%@ taglib prefix = "max" uri = "WEB-INF/taglib/maxtags.tld"%>
-<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/jspf/imports.jspf"%>
-<fmt:setLocale value="uk" />
-<fmt:setBundle basename="resources" />
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/footer.css">
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/popper.min.js"></script>
 		<script src="assets/js/bootstrap.min.js"></script>
 		<title>Max Airline</title>
 	</head>
 	<body>
+	${sessionScope.locale }
 		<nav class="navbar navbar-expand-lg bg-light justify-content-between">
 		  <ul class="nav navbar-nav">
 		    <li class="nav-item active">
@@ -53,5 +53,6 @@
 			</form>
 		</div>
 		</div>
+<%@include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 </html>
