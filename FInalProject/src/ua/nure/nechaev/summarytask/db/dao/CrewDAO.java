@@ -15,7 +15,11 @@ import ua.nure.nechaev.summarytask.db.entity.FlightCrew;
 import ua.nure.nechaev.summarytask.exception.DBException;
 
 public class CrewDAO {
-
+	/**
+	 * DAO class for getting Crew for flight from data base
+	 * @author Maks
+	 *
+	 */
 	private static final Logger LOG = Logger.getLogger(CrewDAO.class);
 
 	private static String SELECT_ALL_FOR_FLIGHT = "SELECT * FROM flightcrew WHERE flightID = ?";

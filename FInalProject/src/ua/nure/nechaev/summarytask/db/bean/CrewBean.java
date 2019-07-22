@@ -4,7 +4,6 @@ import ua.nure.nechaev.summarytask.db.dao.FlightsDAO;
 import ua.nure.nechaev.summarytask.db.dao.WorkerDAO;
 import ua.nure.nechaev.summarytask.db.entity.FlightCrew;
 import ua.nure.nechaev.summarytask.exception.DBException;
-
 public class CrewBean {
 	private int id;
 	private FlightBean flight;

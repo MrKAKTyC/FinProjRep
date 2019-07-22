@@ -15,10 +15,12 @@ import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.command.CommandContainer;
 import ua.nure.nechaev.summarytask.web.requests.GetRequest;
+import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
 
 /**
  * Servlet implementation class FronController
+ * receive all request, and execute corresponding command class
  */
 @WebServlet(urlPatterns = "/Controller", name = "FrontController")
 public class FrontController extends HttpServlet {
@@ -61,16 +63,22 @@ public class FrontController extends HttpServlet {
 		try {
 			forward = command.execute(request, response);
 		} catch (Exception ex) {
-			request.setAttribute("errorMessage", ex.getMessage());
+			if(request.getSession().getAttribute("user") == null) {
+				// redirect guests to index page
+				forward = new PostRequest(Path.SHOW_INDEX);
+			} else {
+				// redirect managers to flughts list
+				forward = new PostRequest(Path.SHOW_FLIGHTS_LIST);
+			}
 		}
-		LOG.trace("Forward address --> " + forward.getPath());
-
-		try {
-			forward.resend(request, response);
-		} catch (AppException e) {
-			LOG.error(e.getMessage(), e);
-			
-		}
+		if (forward != null) {
+			LOG.trace("Forward address --> " + forward.getPath());
+			try {
+				forward.resend(request, response);
+			} catch (AppException e) {
+				LOG.error(e.getMessage(), e);
+			}
+		} 
 	}
 
 }

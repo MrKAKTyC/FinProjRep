@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Workers list</title>
+<title><fmt:message key="title.workers" /></title>
 </head>
 <body>
 	<%@include file="/WEB-INF/jspf/header.jspf"%>
@@ -22,9 +22,9 @@
 				<div class="modal-body">
 					<form action="./Controller?command=workerAddNew" method="POST">
 						<label for="name"><fmt:message key="worker_table.name" /></label>
-						<input class="form-control" name="name">
+						<input class="form-control" name="name" required>
 						<label for="spec"><fmt:message key="worker_table.specialization" /></label>
-						<select class="form-control" name="spec">
+						<select class="form-control" name="spec" required>
 							<c:forEach var="spec" items="${specs}">
 								<option value="${spec.getIntVal()}"><fmt:message key="specializations.${spec }" /></option>
 							</c:forEach>
@@ -41,5 +41,6 @@
 		</div>
 	</div>
 	<max:workers workersList="${workers}"/>
+	<%@include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 </html>

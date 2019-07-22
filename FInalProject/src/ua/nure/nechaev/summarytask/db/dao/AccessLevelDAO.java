@@ -13,6 +13,12 @@ import ua.nure.nechaev.summarytask.db.DBManager;
 import ua.nure.nechaev.summarytask.db.entity.AccessLevel;
 import ua.nure.nechaev.summarytask.exception.DBException;
 
+
+/**
+ * DAO class for getting Access levels from data base
+ * @author Maks
+ *
+ */
 public class AccessLevelDAO {
 	private static final Logger LOG = Logger.getLogger(AccessLevelDAO.class);
 	private static String SELECT_ACCESSLEVELS = "SELECT accessType FROM accesslevels";

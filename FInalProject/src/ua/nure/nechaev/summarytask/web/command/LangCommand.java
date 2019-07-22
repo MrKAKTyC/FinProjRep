@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ua.nure.nechaev.summarytask.exception.AppException;
-import ua.nure.nechaev.summarytask.web.requests.GetRequest;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving language change
+ * @author Maks
+ *
+ */
 public class LangCommand extends Command {
 	private static final Logger LOG = Logger.getLogger(LangCommand.class);
 

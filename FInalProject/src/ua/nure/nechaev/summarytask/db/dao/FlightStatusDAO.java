@@ -13,6 +13,11 @@ import ua.nure.nechaev.summarytask.db.DBManager;
 import ua.nure.nechaev.summarytask.db.entity.FlightStatus;
 import ua.nure.nechaev.summarytask.exception.DBException;
 
+/**
+ * DAO class for getting Flight statuses from data base
+ * @author Maks
+ *
+ */
 public class FlightStatusDAO {
 	private static final Logger LOG = Logger.getLogger(FlightStatusDAO.class);
 	private static String SELECT_FLIGHTSTATUSES = "SELECT * FROM flightstatusen";

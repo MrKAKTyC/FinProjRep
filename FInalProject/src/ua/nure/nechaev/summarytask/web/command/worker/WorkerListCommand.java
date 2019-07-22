@@ -13,7 +13,12 @@ import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.GetRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving request of obtaining all workers
+ * 
+ * @author Maks
+ *
+ */
 public class WorkerListCommand extends Command {
 
 	@Override

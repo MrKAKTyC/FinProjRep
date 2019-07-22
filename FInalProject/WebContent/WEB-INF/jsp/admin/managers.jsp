@@ -1,11 +1,9 @@
-<%@ taglib prefix="max" uri="/WEB-INF/taglib/maxtags.tld"%>
 <%@include file="/WEB-INF/jspf/imports.jspf"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>All managers</title>
-	</head>
+		<title><fmt:message key="title.managers" /></title>
 	<body>
 		<%@include file="/WEB-INF/jspf/header.jspf"%>
 	<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -23,15 +21,15 @@
 				<div class="modal-body">
 					<form action="./Controller?command=addNewManager" method="POST">
 						<fmt:message key="admin_table.login" />
-						<input name="login" class="form-control">
+						<input name="login" class="form-control" required>
 						<fmt:message key="admin_table.password" />
-						<input name="password" type="password" class="form-control">
+						<input name="password" type="password" class="form-control" required>
 						<fmt:message key="admin_table.role" />
-						<select name="level" class="form-control">
+						<select name="level" class="form-control" required>
 							<option value="1"><fmt:message key="Administrator" /></option>
 							<option value="2"><fmt:message key="Dispatcher" /></option>
 						</select>
-						<input type="submit" value="<fmt:message key="button.add" />">
+						<input type="submit" class="btn btn-primary" value="<fmt:message key="button.add" />">
 					</form>
 				</div>
 
@@ -43,5 +41,6 @@
 		</div>
 	</div>
 	<max:managers managersList="${managers}"/>
+	<%@include file="/WEB-INF/jspf/footer.jspf"%>
 	</body>
 </html>

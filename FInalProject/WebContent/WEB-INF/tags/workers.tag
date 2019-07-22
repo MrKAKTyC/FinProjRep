@@ -5,6 +5,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:if test="${empty sessionScope.locale}">
+	<c:set var="locale" value="en" scope="session" />
+</c:if>
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="resources" />
+
 <table class="table table-striped">
 	<tr>
 		<th><fmt:message key="common_table.id" /></th>

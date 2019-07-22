@@ -12,6 +12,12 @@ import org.apache.log4j.Logger;
 
 import ua.nure.nechaev.summarytask.exception.DBException;
 
+/**
+ * 
+ * @author Maks
+ * Class for obtaining connection
+ */
+
 public class DBManager {
 	private static final Logger LOG = Logger.getLogger(DBManager.class);
 	private static DBManager instance;
@@ -36,7 +42,11 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * 
+	 * @return Connection to database
+	 * @throws DBException if any problems occurred during obtaining connection 
+	 */
 	public Connection getConnection() throws DBException {
 		Connection con = null;
 		try {

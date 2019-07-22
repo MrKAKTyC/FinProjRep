@@ -12,7 +12,12 @@ import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving request of deleting manager
+ * 
+ * @author Maks
+ *
+ */
 public class ManagerDeleteComand extends Command {
 
 	@Override
@@ -23,7 +28,7 @@ public class ManagerDeleteComand extends Command {
 		try {
 		managerId = Integer.parseInt(request.getParameter("id"));
 		} catch (NumberFormatException e) {
-			return new PostRequest(Path.PAGE_ERROR_PAGE);
+			throw new AppException("Illegal parameters", e);
 		}
 		ManagerDAO managerDAO = new ManagerDAO();
 		managerDAO.deleteManager(managerId);

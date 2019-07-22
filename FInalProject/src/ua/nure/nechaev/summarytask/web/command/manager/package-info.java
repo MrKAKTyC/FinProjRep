@@ -1,1 +1,0 @@
-package ua.nure.nechaev.summarytask.web.command.manager;

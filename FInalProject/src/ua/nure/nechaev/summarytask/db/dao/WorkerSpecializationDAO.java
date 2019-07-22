@@ -11,7 +11,11 @@ import java.util.List;
 import ua.nure.nechaev.summarytask.db.DBManager;
 import ua.nure.nechaev.summarytask.db.entity.WorkerSpecialization;
 import ua.nure.nechaev.summarytask.exception.DBException;
-
+/**
+ * DAO class for getting worker specialization from data base
+ * @author Maks
+ *
+ */
 public class WorkerSpecializationDAO {
 	private static String SELECT_ALL_SPECIALIZATION = "Select * FROM specializationen";
 	private static String SELECT_BY_ID = "SELECT * FROM specializationen WHERE specID = ?";

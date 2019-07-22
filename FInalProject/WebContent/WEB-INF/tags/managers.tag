@@ -4,6 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:if test="${empty sessionScope.locale}">
+	<c:set var="locale" value="en" scope="session" />
+</c:if>
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="resources" />
+
 <table class="table table-striped">
 	<tr>
 		<th><fmt:message key="common_table.id" /></th>
@@ -15,7 +21,7 @@
 		<tr>
 			<td>${manager.id}</td>
 			<td>${manager.login}</td>
-			<td>${manager.level}</td>
+			<td><fmt:message key="${manager.level}" /></td>
 			<td><button class="btn btn-primary"
 					onclick='document.location.href="./Controller?command=managerEdit&id=${manager.id}"'>
 					<fmt:message key="button.mod" />

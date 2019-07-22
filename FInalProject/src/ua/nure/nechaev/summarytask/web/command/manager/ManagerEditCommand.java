@@ -17,7 +17,12 @@ import ua.nure.nechaev.summarytask.exception.DBException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.GetRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving request of redirecting for manager edit
+ * 
+ * @author Maks
+ *
+ */
 public class ManagerEditCommand extends Command {
 
 	private static final Logger LOG = Logger.getLogger(ManagerEditCommand.class);
@@ -29,7 +34,7 @@ public class ManagerEditCommand extends Command {
 		try {
 			managerId = Integer.parseInt(request.getParameter("id"));
 		} catch (NumberFormatException e) {
-			return new GetRequest(Path.PAGE_ERROR_PAGE);
+			throw new AppException("Illegal parameters", e);
 		}
 		LOG.trace("Searching manager with id "+managerId);
 		Manager manager;
@@ -38,7 +43,7 @@ public class ManagerEditCommand extends Command {
 			manager = managerDAO.getManager(managerId);
 		} catch (DBException e) {
 			LOG.error(e);
-			return new GetRequest(Path.PAGE_ERROR_PAGE);
+			throw new AppException("DBProblem", e);
 		}
 		LOG.trace("returning manager "+ manager.toString());
 		request.setAttribute("manager", manager);

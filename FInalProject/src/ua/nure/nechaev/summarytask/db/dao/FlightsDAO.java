@@ -17,12 +17,19 @@ import ua.nure.nechaev.summarytask.db.entity.Flight;
 import ua.nure.nechaev.summarytask.db.entity.FlightStatus;
 import ua.nure.nechaev.summarytask.exception.DBException;
 
+/**
+ * DAO class for getting Flights from data base
+ * @author Maks
+ *
+ */
 public class FlightsDAO {
 	private static final Logger LOG = Logger.getLogger(FlightsDAO.class);
 	private static String SELECT_ALL_FLIGHTS = "SELECT * FROM flight";
+	private static String SELECT_ALL_AVAIBLE = "SELECT * FROM `flight` WHERE flight.statusId IN (1, 2)";
 	private static String SELECT_FLIGHT = "SELECT * FROM flight WHERE flightNumb = ?";
 	private static String INSERT_FLIGHT = "INSERT INTO flight (fromId, toId, depatureDate, flightName, statusId) VALUES (?, ?, ?, ?, ?);";
 	private static String UPDATE_FLIGHT = "UPDATE flight SET fromId = ?, toId = ?, depatureDate = ?, flightName = ?, statusId = ? WHERE flightNumb = ? ";
+	private static String UPDATE_FLIGHT_STATUS = "UPDATE flight SET statusId = ? WHERE flightNumb = ? ";
 	private static String DELETE_FLIGHT = "DELETE FROM flight WHERE flightNumb = ?";
 	// fromCity fromCountry toCity toCountry date
 	private static String FIND_BY_DATE_AND_ENDPOINTS = "SELECT DISTINCT FROM_AP.* FROM (SELECT * FROM flight JOIN airports ON flight.fromId = airports.airportID) AS FROM_AP"
@@ -75,11 +82,16 @@ public class FlightsDAO {
 		return flights;
 	}
 
-	public List<FlightBean> getAll() throws DBException {
+	public List<FlightBean> getAll(boolean withCanceled) throws DBException {
 		List<FlightBean> flights = new LinkedList<FlightBean>();
 		try (Connection con = DBManager.getInstance().getConnection()) {
 			try (Statement stmt = con.createStatement()) {
-				ResultSet rs = stmt.executeQuery(SELECT_ALL_FLIGHTS);
+				ResultSet rs;
+				if (withCanceled) {
+					rs = stmt.executeQuery(SELECT_ALL_FLIGHTS);
+				} else {
+					rs = stmt.executeQuery(SELECT_ALL_AVAIBLE);
+				}
 				flights = getFromQuerry(rs);
 			}
 		} catch (DBException | SQLException e) {
@@ -87,6 +99,10 @@ public class FlightsDAO {
 			throw new DBException(e.getMessage(), e);
 		}
 		return flights;
+	}
+
+	public List<FlightBean> getAll() throws DBException {
+		return getAll(true);
 	}
 
 	public FlightBean get(int numb) throws DBException {
@@ -114,9 +130,9 @@ public class FlightsDAO {
 		return flightBean;
 	}
 
-	public void create(Flight flight) throws DBException {
+	public long create(Flight flight) throws DBException {
 		try (Connection con = DBManager.getInstance().getConnection()) {
-			try (PreparedStatement pstmt = con.prepareStatement(INSERT_FLIGHT)) {
+			try (PreparedStatement pstmt = con.prepareStatement(INSERT_FLIGHT, Statement.RETURN_GENERATED_KEYS)) {
 				// fromId, toId, depatureDate, flightName, statusId
 				pstmt.setInt(1, flight.getFromId());
 				pstmt.setInt(2, flight.getToId());
@@ -125,6 +141,14 @@ public class FlightsDAO {
 				pstmt.setInt(5, flight.getStatus().getId());
 				pstmt.executeUpdate();
 				con.commit();
+
+				try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+					if (generatedKeys.next()) {
+						return generatedKeys.getLong(1);
+					} else {
+						throw new SQLException("Problem with obtaining keys");
+					}
+				}
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
@@ -149,7 +173,20 @@ public class FlightsDAO {
 			LOG.error(e);
 			throw new DBException();
 		}
+	}
 
+	public void updateStatus(Flight flight) throws DBException {
+		try (Connection con = DBManager.getInstance().getConnection()) {
+			try (PreparedStatement pstmt = con.prepareStatement(UPDATE_FLIGHT_STATUS)) {
+				pstmt.setInt(1, flight.getStatus().getId());
+				pstmt.setInt(2, flight.getNumber());
+				pstmt.executeUpdate();
+				con.commit();
+			}
+		} catch (SQLException e) {
+			LOG.error(e);
+			throw new DBException();
+		}
 	}
 
 	public void delete(int id) throws DBException {

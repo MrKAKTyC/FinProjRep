@@ -16,7 +16,12 @@ import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.GetRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving request of showing all flight
+ * 
+ * @author Maks
+ *
+ */
 public class FlightListCommand extends Command {
 
 	@Override

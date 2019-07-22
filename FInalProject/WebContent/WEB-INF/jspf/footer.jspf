@@ -2,7 +2,7 @@
 <footer class="footer">
 	<div class="dropup">
 		<button type="button" class="btn btn-primary dropdown-toggle"
-			data-toggle="dropdown">Lang</button>
+			data-toggle="dropdown"><fmt:message key="button.lang" /></button>
 		<div class="dropdown-menu">
 			<a class="dropdown-item" href="./Controller?command=lang&locale=en">en</a>
 			<a class="dropdown-item" href="./Controller?command=lang&locale=uk">ua</a>

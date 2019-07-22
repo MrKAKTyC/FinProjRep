@@ -15,13 +15,24 @@ import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
 
+/**
+ * Command class for serving request of deleting worker
+ * 
+ * @author Maks
+ *
+ */
 public class WorkerDeleteComand extends Command {
 	private static final Logger LOG = Logger.getLogger(WorkerDeleteComand.class);
 
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
-		int workerId = Integer.parseInt(request.getParameter("id"));
+		int workerId;
+		try {
+			workerId = Integer.parseInt(request.getParameter("id"));
+		} catch (NumberFormatException e) {
+			throw new AppException("Illegal parametr value");
+		}
 		WorkerDAO workerDAO = new WorkerDAO();
 		LOG.trace("deleting worker with id " + workerId);
 		workerDAO.delete(workerId);

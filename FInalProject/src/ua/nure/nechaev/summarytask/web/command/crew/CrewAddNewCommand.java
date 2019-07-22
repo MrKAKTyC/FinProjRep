@@ -14,7 +14,11 @@ import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving request for adding new crew member
+ * @author Maks
+ *
+ */
 public class CrewAddNewCommand extends Command {
 
 	private static final Logger LOG = Logger.getLogger(CrewAddNewCommand.class);
@@ -22,6 +26,7 @@ public class CrewAddNewCommand extends Command {
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
+		//get referrer for coming back after adding crew member
 		String referer = request.getHeader("referer");
 		try {
 			int flightId = Integer.parseInt(request.getParameter("flightId"));

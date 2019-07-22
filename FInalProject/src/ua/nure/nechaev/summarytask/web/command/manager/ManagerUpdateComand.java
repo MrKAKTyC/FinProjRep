@@ -15,6 +15,12 @@ import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
 
+/**
+ * Command class for serving request of redirecting for manager edit
+ * 
+ * @author Maks
+ *
+ */
 public class ManagerUpdateComand extends Command {
 
 	private static final Logger LOG = Logger.getLogger(ManagerUpdateComand.class);
@@ -22,10 +28,20 @@ public class ManagerUpdateComand extends Command {
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
-		int managerId = Integer.parseInt(request.getParameter("id"));
-		int accessLevel = Integer.parseInt(request.getParameter("level"));
+		int managerId = 0;
+		int accessLevel = 0;
+		try {
+			managerId = Integer.parseInt(request.getParameter("id"));
+			accessLevel = Integer.parseInt(request.getParameter("level"));
+		} catch (NumberFormatException e) {
+			LOG.error("Illegal parameter", e);
+			throw new AppException("Illegal parameter value", e);
+		}
 		String login = request.getParameter("login");
-		LOG.trace("Update manager with id " + managerId + " seting login: "+login+" and AL "+accessLevel);
+		if (managerId < 0 || accessLevel < 0 || login == null || login.isEmpty()) {
+			throw new AppException("Illegal parameter value");
+		}
+		LOG.trace("Update manager with id " + managerId + " seting login: " + login + " and AL " + accessLevel);
 		ManagerDAO managerDAO = new ManagerDAO();
 		managerDAO.updateManager(managerId, login, accessLevel);
 		return new PostRequest(Path.SHOW_MANAGERS_LIST);

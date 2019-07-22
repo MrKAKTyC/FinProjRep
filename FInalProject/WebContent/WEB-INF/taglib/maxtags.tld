@@ -14,6 +14,16 @@
 		</attribute>
 	</tag-file>
 	<tag-file>
+		<name>userFlights</name>
+		<body-content>scriptless</body-content>
+		<path>/WEB-INF/tags/userFlights.tag</path>
+		<attribute>
+			<name>flightsList</name>
+			<type>java.util.List</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag-file>
+	<tag-file>
 		<name>managers</name>
 		<body-content>scriptless</body-content>
 		<path>/WEB-INF/tags/managers.tag</path>

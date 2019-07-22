@@ -14,7 +14,11 @@ import ua.nure.nechaev.summarytask.db.DBManager;
 import ua.nure.nechaev.summarytask.db.bean.WorkerBean;
 import ua.nure.nechaev.summarytask.db.entity.Worker;
 import ua.nure.nechaev.summarytask.exception.DBException;
-
+/**
+ * DAO class for getting workers from data base
+ * @author Maks
+ *
+ */
 public class WorkerDAO {
 	private static final Logger LOG = Logger.getLogger(WorkerDAO.class);
 

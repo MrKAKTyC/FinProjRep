@@ -10,15 +10,17 @@
     <li class="nav-item">
       <a class="nav-link" href="./Controller?command=flightList"><fmt:message key="admin_menu.flights" /></a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="./Controller?command=workerList"><fmt:message key="admin_menu.workers" /></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="./Controller?command=managerList"><fmt:message key="admin_menu.managers" /></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="./Controller?command=reportList"><fmt:message key="admin_menu.reports" /></a>
-    </li>
+    <c:if test="${user.level == 'Administrator' }">
+	    <li class="nav-item">
+	      <a class="nav-link" href="./Controller?command=workerList"><fmt:message key="admin_menu.workers" /></a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="./Controller?command=managerList"><fmt:message key="admin_menu.managers" /></a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="./Controller?command=reportList"><fmt:message key="admin_menu.reports" /></a>
+	    </li>
+    </c:if>
     <li class="nav-item">
       <a class="nav-link" href="./Controller?command=logout"><fmt:message key="admin_menu.logout" /></a>
     </li>

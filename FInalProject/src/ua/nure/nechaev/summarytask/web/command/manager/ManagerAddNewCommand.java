@@ -15,10 +15,14 @@ import ua.nure.nechaev.summarytask.db.entity.Manager;
 import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.exception.DBException;
 import ua.nure.nechaev.summarytask.web.command.Command;
-import ua.nure.nechaev.summarytask.web.requests.GetRequest;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving request of adding new manager
+ * 
+ * @author Maks
+ *
+ */
 public class ManagerAddNewCommand extends Command {
 
 	private static final Logger LOG = Logger.getLogger(ManagerAddNewCommand.class);
@@ -33,10 +37,10 @@ public class ManagerAddNewCommand extends Command {
 		try {
 			intLevel = Integer.parseInt(request.getParameter("level"));
 		} catch (NumberFormatException e) {
-			return new GetRequest(Path.PAGE_ERROR_PAGE);
+			throw new AppException();
 		}
 		if (login == null || login.isEmpty() || password == null || password.isEmpty() || intLevel < 0) {
-			return new GetRequest(Path.PAGE_ERROR_PAGE);
+			throw new AppException();
 		}
 		Manager manager = new Manager();
 		manager.setLogin(login);

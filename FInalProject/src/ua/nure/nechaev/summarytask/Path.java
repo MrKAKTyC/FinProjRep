@@ -1,5 +1,11 @@
 package ua.nure.nechaev.summarytask;
 
+/**
+ * 
+ * @author Maks
+ * Class that store all available path for use in redirection.
+ */
+
 public final class Path {
 	//pages
 	public static final String PAGE_ERROR_PAGE = "/WEB-INF/jsp/error_page.jsp";
@@ -12,12 +18,13 @@ public final class Path {
 	public static final String Page_EDIT_FLIGHT = "/WEB-INF/jsp/admin/flight.jsp";
 	public static final String PAGE_EDIT_CREW = "/WEB-INF/jsp/admin/crew.jsp";
 	public static final String INDEX_PAGE = "/WEB-INF/jsp/client/index.jsp";
+	public static final String PAGE_LOGIN = "login.jsp";
 	
 	//commands
 	public static final String SHOW_FLIGHTS_LIST = "./Controller?command=flightList";
 	public static final String SHOW_WORKERS_LIST = "./Controller?command=workerList";
 	public static final String SHOW_MANAGERS_LIST = "./Controller?command=managerList";
 	public static final String SHOW_REPORTS_LIST = "./Controller?command=reportList";
-	
+	public static final String SHOW_CERTAIN_FLIGHT_CREW = "./Controller?command=crewList&id=%d";
 	public static final String SHOW_INDEX = "./Controller?command=flights";
 }

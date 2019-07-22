@@ -17,7 +17,11 @@ import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.requests.GetRequest;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Class for serving authorization requests
+ * @author Maks
+ *
+ */
 public class LoginCommand extends Command {
 
 	private static final Logger LOG = Logger.getLogger(LoginCommand.class);
@@ -48,7 +52,7 @@ public class LoginCommand extends Command {
 		AccessLevel userRole = manager.getLevel();
 		LOG.trace("userRole --> " + userRole);
 
-		Request forward = new GetRequest(Path.PAGE_ERROR_PAGE);
+		Request forward = new GetRequest(Path.PAGE_LOGIN);
 
 		if (userRole == AccessLevel.Administrator) {
 			forward = new PostRequest(Path.SHOW_FLIGHTS_LIST);

@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${title }</title>
+	<%@include file="/WEB-INF/jspf/header.jspf"%>
+	<title><fmt:message key="title.crew" /></title>
 </head>
 <body>
-	<%@include file="/WEB-INF/jspf/header.jspf"%>
-	Assigned:
+	<fmt:message key="text.assigned" />:
 	<br />
-	<table>
+	<table class="table table-striped">
 		<tr>
 			<th><fmt:message key="common_table.id" /></th>
 			<th><fmt:message key="worker_table.name" /></th>
@@ -25,14 +25,20 @@
 				<td>
 					<form action="./Controller?command=crewDelete&id=${crewMember.getId() }"
 						method="POST">
-						<input type="submit" value="X">
+						<input class="btn btn-danger" type="submit" value="X">
 					</form>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
-	Available:
-	<table>
+	<fmt:message key="text.available" />:
+	<table class="table table-striped">
+		<tr>
+			<th><fmt:message key="common_table.id" /></th>
+			<th><fmt:message key="worker_table.name" /></th>
+			<th><fmt:message key="worker_table.specialization" /></th>
+			<th><fmt:message key="common_table.action" /></th>
+		</tr>
 		<c:forEach var="worker" items="${available }">
 			<tr>
 				<td>${worker.getWorkerId() }</td>
@@ -42,18 +48,19 @@
 					<form
 						action="./Controller?command=crewAddNew&flightId=${param.id }&workerId=${worker.getWorkerId() }"
 						method="POST">
-						<input type="submit" value="+">
+						<input class="btn btn-success" type="submit" value="+">
 					</form>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
-	Send Report:
+	<fmt:message key="text.sendReport" />:
 	<form action="./Controller?command=reportAdd" method="POST">
-		<label>Problem description</label><br />
-		<textarea rows="10" cols="20" name="reason"></textarea>
+		<label><fmt:message key="text.reportReason" /></label><br />
+		<textarea rows="10" cols="20" name="reason" required></textarea>
 		<input type="hidden" value="${param.id }" name="flightID">
-		<input type="submit" value="<fmt:message key="button.send" />">
+		<input class="btn btn-primary" type="submit" value="<fmt:message key="button.send" />">
 	</form>
+<%@include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 </html>

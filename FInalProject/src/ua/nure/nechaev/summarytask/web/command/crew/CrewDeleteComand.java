@@ -14,7 +14,11 @@ import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving request for deleting crew member
+ * @author Maks
+ *
+ */
 public class CrewDeleteComand extends Command {
 	
 	private static final Logger LOG = Logger.getLogger(CrewDeleteComand.class);

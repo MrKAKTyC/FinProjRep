@@ -4,6 +4,12 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <jsp-config>
+    <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+</jsp-config>
   <context-param>
     <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
     <param-value>resources</param-value>
@@ -25,11 +31,11 @@
     </init-param>
     <init-param>
       <param-name>Dispatcher</param-name>
-      <param-value>flightList crewList crewAddNew crewDelete reportAdd</param-value>
+      <param-value>flightList crewList flightEdit crewAddNew crewDelete reportAdd</param-value>
     </init-param>
     <init-param>
       <param-name>out-of-control</param-name>
-      <param-value>login flights lang noCommand error</param-value>
+      <param-value>login logout flights lang noCommand error autocomplete</param-value>
     </init-param>
   </filter>
   <filter-mapping>

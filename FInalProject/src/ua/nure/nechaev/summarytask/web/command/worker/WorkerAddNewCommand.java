@@ -15,7 +15,12 @@ import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving request of adding new worker
+ * 
+ * @author Maks
+ *
+ */
 public class WorkerAddNewCommand extends Command {
 	
 	private static final Logger LOG = Logger.getLogger(WorkerAddNewCommand.class);
@@ -23,8 +28,16 @@ public class WorkerAddNewCommand extends Command {
 	@Override
 	public Request execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, AppException {
+		int workerSpec;
+		try {
+			workerSpec = Integer.parseInt(request.getParameter("spec"));
+		} catch (NumberFormatException e) {
+			throw new AppException("Illegel parameter value");
+		}
 		String workerName = request.getParameter("name");
-		int workerSpec = Integer.parseInt(request.getParameter("spec"));
+		if(workerName == null || workerName.isEmpty()) {
+			throw new AppException("Illegel parameter value");
+		}
 		Worker worker = new Worker();
 		worker.setName(workerName);
 		worker.setSpec(workerSpec);

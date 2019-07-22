@@ -4,7 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import ua.nure.nechaev.summarytask.web.command.AdminMenuCommand;
+import ua.nure.nechaev.summarytask.web.command.AutocompleteCommand;
 import ua.nure.nechaev.summarytask.web.command.CommandContainer;
 import ua.nure.nechaev.summarytask.web.command.LangCommand;
 import ua.nure.nechaev.summarytask.web.command.LoginCommand;
@@ -62,10 +62,10 @@ public class InitListener implements ServletContextListener {
 		commands.add("login", new LoginCommand());
 		commands.add("flights", new FlightsCommand());
 		commands.add("lang", new LangCommand());
+		commands.add("autocomplete", new AutocompleteCommand());
 		// secured
 		// common commands
 		commands.add("logout", new LogoutCommand());
-		commands.add("adminMenu", new AdminMenuCommand());
 		// manager commands
 		commands.add("managerList", new ManagerListCommand());
 		commands.add("addNewManager", new ManagerAddNewCommand());

@@ -14,11 +14,15 @@ import ua.nure.nechaev.summarytask.db.DBManager;
 import ua.nure.nechaev.summarytask.db.entity.AccessLevel;
 import ua.nure.nechaev.summarytask.db.entity.Manager;
 import ua.nure.nechaev.summarytask.exception.DBException;
-
+/**
+ * DAO class for getting managers from data base
+ * @author Maks
+ *
+ */
 public class ManagerDAO {
 	private static final Logger LOG = Logger.getLogger(ManagerDAO.class);
 
-	private static String SELECT_MANAGER_BY_LOGIN_AND_PASS = "SELECT * FROM managment JOIN accesslevels ON managerId=accessId WHERE login = ? AND password = ?";
+	private static String SELECT_MANAGER_BY_LOGIN_AND_PASS = "SELECT * FROM managment JOIN accesslevels ON accesLevel=accessId WHERE login = ? AND password = ?";
 	private static String SELECT_MANAGER_BY_ID = "SELECT * FROM managment JOIN accesslevels ON accesLevel=accessId WHERE managerId = ?";
 	private static String SELECT_MANAGERS = "SELECT * FROM finaltask.managment INNER JOIN accesslevels ON (accesLevel = accessId)";
 	private static String INSERT_MANAGER = "INSERT INTO managment (login, password, accesLevel) VALUES (?, ?, ?)";
@@ -31,11 +35,14 @@ public class ManagerDAO {
 			try (PreparedStatement pstmt = con.prepareStatement(SELECT_MANAGER_BY_LOGIN_AND_PASS)) {
 				pstmt.setString(1, login);
 				pstmt.setString(2, password);
+				LOG.trace("user select " + pstmt);
 				ResultSet rs = pstmt.executeQuery();
 				if (rs.next()) {
 					manager = new Manager();
 					manager.setLogin(login);
-					manager.setLevel(AccessLevel.valueOf(rs.getString("accessType")));
+					String accessLevel = rs.getString("accessType");
+					LOG.trace("user access level "+ accessLevel);
+					manager.setLevel(AccessLevel.valueOf(accessLevel));
 				}
 			}
 		} catch (SQLException e) {

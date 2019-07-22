@@ -6,15 +6,16 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		<link rel="stylesheet" href="assets/css/footer.css">
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/popper.min.js"></script>
 		<script src="assets/js/bootstrap.min.js"></script>
-		<title>Max Airline</title>
+		<script src="assets/js/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/footer.css">
+		<link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+		<title><fmt:message key="title.index" /></title>
 	</head>
 	<body>
-	${sessionScope.locale }
 		<nav class="navbar navbar-expand-lg bg-light justify-content-between">
 		  <ul class="nav navbar-nav">
 		    <li class="nav-item active">
@@ -24,35 +25,52 @@
 		  <form class="form-inline pull-xs-right" action="./Controller">
 				<input type="hidden" name="command" value="flights">
 				<input type="hidden" name="action" value="searchNumber">
-				<input class="form-control" name="number" placeholder="Search by number">
+				<input class="form-control" name="number" pattern="\d+" placeholder="<fmt:message key="text.numberSearch" />" required>
 				<input class="btn btn-info" type="submit" value="<fmt:message key="button.search" />">
 		  </form>
 		</nav>
 		<div class="d-flex">
 		<div class="p-2 flex-grow-1">
-			<max:flights flightsList="${flights}" />
+			<max:userFlights flightsList="${flights}" />
 		</div>
 		<div class="p-2 bg-light">
 			<form action="./Controller" method="GET">
-				Advanced search
+				<fmt:message key="text.advancedSearch" />
 				<input type="hidden" name="command" value="flights">
 				<br/>
 				<input type="hidden" name="action" value="searchFull">
 				<br/>
-				<input name="CountryFrom" placeholder="Country From">
+				<input name="CountryFrom" placeholder="<fmt:message key="text.CountryFrom" />">
 				<br/>
-				<input name="CityFrom" placeholder="City From">
+				<input name="CityFrom" placeholder="<fmt:message key="text.CityFrom" />">
 				<br/>
-				<input name="CountryTo" placeholder="Country To">
+				<input name="CountryTo" placeholder="<fmt:message key="text.CountryTo" />">
 				<br/>
-				<input name="CityTo" placeholder="City To">
+				<input name="CityTo" placeholder="<fmt:message key="text.CityTo" />">
 				<br/>
-				<input type="date" name="date">
+				<input type="date" name="<fmt:message key="flights_table.date" />">
 				<br/>
-				<input type="submit" value="<fmt:message key="button.search" />">
+				<input class="btn btn-info" type="submit" value="<fmt:message key="button.search" />">
 			</form>
 		</div>
 		</div>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>
+<script>
+	var countryF = "%";
+	var countryT = "%";
+	
+
+$( function() {
+    $( "input[name=CountryFrom]" ).autocomplete({
+      source: "./Controller?command=autocomplete&field=country",
+      select: function( event, ui ) {
+    	  countryF = ui.item.value;
+      }
+    });
+    $( "input[name=CityFrom]" ).autocomplete({
+        source: "./Controller?command=autocomplete&field=city&term=".countryF
+      });
+  } );
+</script>
 </body>
 </html>

@@ -18,7 +18,12 @@ import ua.nure.nechaev.summarytask.exception.AppException;
 import ua.nure.nechaev.summarytask.web.command.Command;
 import ua.nure.nechaev.summarytask.web.requests.GetRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
-
+/**
+ * Command class for serving request of showing all flights and sorting or searching
+ * 
+ * @author Maks
+ *
+ */
 public class FlightsCommand extends Command {
 	private static final Logger LOG = Logger.getLogger(FlightsDAO.class);
 
@@ -33,12 +38,14 @@ public class FlightsCommand extends Command {
 		List<FlightBean> flights = null;
 		try {
 			switch (action) {
+			//return flight with specific number
 			case "searchNumber":
 				flights = new LinkedList<FlightBean>();
 				int numberToFind = Integer.parseInt(request.getParameter("number"));
 				LOG.trace("Searching by number " + numberToFind);
 				flights.add(flightDAO.get(numberToFind));
 				break;
+			//return all flights which fulfill requirements
 			case "searchFull":
 				String countryFrom = request.getParameter("CountryFrom");
 				String cityFrom = request.getParameter("CityFrom");
@@ -54,13 +61,15 @@ public class FlightsCommand extends Command {
 				LOG.trace("Complex search");
 				flights = flightDAO.Search(airportFrom, airportTo, date);
 				break;
+			//return all flights but sorted
 			case "sort":
 				String fieldToSort = request.getParameter("field");
 				LOG.trace("Do sorting by field "+fieldToSort);
 				flights = flightDAO.getSorted(fieldToSort);
 				break;
+			// return all flights
 			default:
-				flights = flightDAO.getAll();
+				flights = flightDAO.getAll(false);
 				break;
 			}
 			request.setAttribute("flights", flights);

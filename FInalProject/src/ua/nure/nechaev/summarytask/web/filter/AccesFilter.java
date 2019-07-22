@@ -2,9 +2,11 @@ package ua.nure.nechaev.summarytask.web.filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import javax.servlet.Filter;
@@ -23,6 +25,14 @@ import ua.nure.nechaev.summarytask.Path;
 import ua.nure.nechaev.summarytask.db.entity.AccessLevel;
 import ua.nure.nechaev.summarytask.db.entity.Manager;
 
+/**
+ * Filter class which filter requests and depending on requested page and user
+ * role grant or deny access. Also set encoding of incoming and outcoming data
+ * to UTF-8
+ * 
+ * @author Maks
+ *
+ */
 public class AccesFilter implements Filter {
 
 	private static final Logger LOG = Logger.getLogger(AccesFilter.class);
@@ -39,21 +49,21 @@ public class AccesFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		LOG.debug("Filter starts");
 		if (accessAllowed(request)) {
 			String requestEncoding = request.getCharacterEncoding();
 			LOG.debug("input enc ->" + requestEncoding);
-			request.setCharacterEncoding("UTF-8");
-			response.setCharacterEncoding("UTF-8");
 			chain.doFilter(request, response);
-			
+
 		} else {
 			String errorMessasge = "You do not have permission to access the requested resource";
 
 			request.setAttribute("errorMessage", errorMessasge);
 			LOG.trace("Set the request attribute: errorMessage --> " + errorMessasge);
 
-			((HttpServletResponse) response).sendRedirect(Path.SHOW_INDEX);
+			((HttpServletResponse) response).sendRedirect(Path.PAGE_LOGIN);
 		}
 		LOG.debug("Filter finished");
 	}
@@ -62,6 +72,11 @@ public class AccesFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
 		String commandName = request.getParameter("command");
+		LOG.trace("received params: ");
+		for (Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
+			LOG.trace(entry.getKey() + " --> " + Arrays.toString(entry.getValue()));
+		}
+
 		if (commandName == null || commandName.isEmpty()) {
 			return false;
 		}
@@ -78,10 +93,6 @@ public class AccesFilter implements Filter {
 		if (worker == null) {
 			return false;
 		}
-//		AccessLevel accessLevel = AccessLevel.getAccessLevel(worker);
-//		if (accessLevel == null) {
-//			return false;
-//		}
 
 		return accessMap.get(worker.getLevel()).contains(commandName) || commons.contains(commandName);
 	}
