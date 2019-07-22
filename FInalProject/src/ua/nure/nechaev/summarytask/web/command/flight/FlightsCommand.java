@@ -51,7 +51,7 @@ public class FlightsCommand extends Command {
 				String cityFrom = request.getParameter("CityFrom");
 				String countryTo = request.getParameter("CountryTo");
 				String cityTo = request.getParameter("CityTo");
-				String date = request.getParameter("date");
+				String date = request.getParameter("Date");
 				Airport airportFrom = new Airport();
 				airportFrom.setCity(cityFrom);
 				airportFrom.setCountry(countryFrom);

@@ -8,6 +8,43 @@
 	<title><fmt:message key="title.crew" /></title>
 </head>
 <body>
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#myModal">
+		<fmt:message key="text.sendReport" />
+	</button>
+	<div class="modal" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">
+						<fmt:message key="text.sendReport" />
+					</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form action="./Controller?command=reportAdd" method="POST">
+						<label><fmt:message key="text.reportReason" /></label><br />
+						<textarea rows="10" cols="20" name="reason" class="form-control" required></textarea>
+						<input type="hidden" value="${param.id }" name="flightID">
+						<input class="btn btn-primary" type="submit"
+							value="<fmt:message key="button.send" />">
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">
+						<fmt:message key="button.close" />
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<br/>
 	<fmt:message key="text.assigned" />:
 	<br />
 	<table class="table table-striped">
@@ -54,13 +91,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<fmt:message key="text.sendReport" />:
-	<form action="./Controller?command=reportAdd" method="POST">
-		<label><fmt:message key="text.reportReason" /></label><br />
-		<textarea rows="10" cols="20" name="reason" required></textarea>
-		<input type="hidden" value="${param.id }" name="flightID">
-		<input class="btn btn-primary" type="submit" value="<fmt:message key="button.send" />">
-	</form>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 </html>

@@ -19,13 +19,14 @@ import ua.nure.nechaev.summarytask.exception.DBException;
 
 /**
  * DAO class for getting Flights from data base
+ * 
  * @author Maks
  *
  */
 public class FlightsDAO {
 	private static final Logger LOG = Logger.getLogger(FlightsDAO.class);
 	private static String SELECT_ALL_FLIGHTS = "SELECT * FROM flight";
-	private static String SELECT_ALL_AVAIBLE = "SELECT * FROM `flight` WHERE flight.statusId IN (1, 2)";
+	private static String SELECT_ALL_AVAIBLE = "SELECT * FROM flight WHERE flight.statusId IN (1, 2)";
 	private static String SELECT_FLIGHT = "SELECT * FROM flight WHERE flightNumb = ?";
 	private static String INSERT_FLIGHT = "INSERT INTO flight (fromId, toId, depatureDate, flightName, statusId) VALUES (?, ?, ?, ?, ?);";
 	private static String UPDATE_FLIGHT = "UPDATE flight SET fromId = ?, toId = ?, depatureDate = ?, flightName = ?, statusId = ? WHERE flightNumb = ? ";
@@ -34,10 +35,10 @@ public class FlightsDAO {
 	// fromCity fromCountry toCity toCountry date
 	private static String FIND_BY_DATE_AND_ENDPOINTS = "SELECT DISTINCT FROM_AP.* FROM (SELECT * FROM flight JOIN airports ON flight.fromId = airports.airportID) AS FROM_AP"
 			+ " JOIN (SELECT * FROM flight JOIN airports ON flight.toId = airports.airportID) AS TO_AP ON FROM_AP.flightNumb = TO_AP.flightNumb "
-			+ "WHERE FROM_AP.airportCity = ? AND FROM_AP.airportCountry = ? AND TO_AP.airportCity = ? AND TO_AP.airportCountry = ? AND DATE(FROM_AP.depatureDate) = ? ";
-	private static String SORT_BY_NAME = "SELECT * FROM flight ORDER BY flightName ASC";
+			+ "WHERE FROM_AP.airportCity = ? AND FROM_AP.airportCountry = ? AND TO_AP.airportCity = ? AND TO_AP.airportCountry = ? AND DATE(FROM_AP.depatureDate) = ? AND FROM_AP.statusId IN (1, 2)";
+	private static String SORT_BY_NAME = "SELECT * FROM flight WHERE flight.statusId IN (1, 2) ORDER BY flightName ASC";
 //	private static String SORT_BY_NAME = "SELECT * FROM flight ORDER BY ? ? ";
-	private static String SORT_BY_NUMBER = "SELECT * FROM flight ORDER BY flightNumb ASC";
+	private static String SORT_BY_NUMBER = "SELECT * FROM flight WHERE flight.statusId IN (1, 2) ORDER BY flightNumb ASC";
 //	private static String SORT_BY_NUMBER = "SELECT * FROM flight ORDER BY ? ? ";
 
 	public List<FlightBean> getSorted(String field) throws DBException {

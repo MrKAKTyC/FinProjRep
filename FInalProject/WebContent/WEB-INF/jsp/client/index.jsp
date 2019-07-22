@@ -36,41 +36,71 @@
 		<div class="p-2 bg-light">
 			<form action="./Controller" method="GET">
 				<fmt:message key="text.advancedSearch" />
-				<input type="hidden" name="command" value="flights">
+				<input type="hidden" name="command" value="flights" required>
 				<br/>
-				<input type="hidden" name="action" value="searchFull">
+				<input type="hidden" name="action" value="searchFull" required>
 				<br/>
-				<input name="CountryFrom" placeholder="<fmt:message key="text.CountryFrom" />">
+				<input name="CountryFrom" placeholder="<fmt:message key="text.CountryFrom" />" required>
 				<br/>
-				<input name="CityFrom" placeholder="<fmt:message key="text.CityFrom" />">
+				<input name="CityFrom" placeholder="<fmt:message key="text.CityFrom" />" required>
 				<br/>
-				<input name="CountryTo" placeholder="<fmt:message key="text.CountryTo" />">
+				<input name="CountryTo" placeholder="<fmt:message key="text.CountryTo" />" required>
 				<br/>
-				<input name="CityTo" placeholder="<fmt:message key="text.CityTo" />">
+				<input name="CityTo" placeholder="<fmt:message key="text.CityTo" />" required>
 				<br/>
-				<input type="date" name="<fmt:message key="flights_table.date" />">
+				<input type="date" name="Date" required>
 				<br/>
 				<input class="btn btn-info" type="submit" value="<fmt:message key="button.search" />">
 			</form>
 		</div>
 		</div>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>
-<script>
-	var countryF = "%";
-	var countryT = "%";
-	
+	<script>
+		var countryF = "%";
+		var countryT = "%";
 
-$( function() {
-    $( "input[name=CountryFrom]" ).autocomplete({
-      source: "./Controller?command=autocomplete&field=country",
-      select: function( event, ui ) {
-    	  countryF = ui.item.value;
-      }
-    });
-    $( "input[name=CityFrom]" ).autocomplete({
-        source: "./Controller?command=autocomplete&field=city&term=".countryF
-      });
-  } );
-</script>
+		$(function() {
+			$("input[name=CountryFrom]").autocomplete({
+				source : "./Controller?command=autocomplete&field=country",
+				select : function(event, ui) {
+					countryF = ui.item.value;
+				}
+			});
+			$("input[name=CityFrom]").autocomplete({
+				source : function(request, response) {
+					$.ajax({
+						url : "./Controller?command=autocomplete&field=city",
+						dataType : "json",
+						data : {
+							term : countryF
+						},
+						success : function(data) {
+							response(data);
+						}
+					});
+				}
+			});
+			$("input[name=CountryTo]").autocomplete({
+				source : "./Controller?command=autocomplete&field=country",
+				select : function(event, ui) {
+					countryT = ui.item.value;
+				}
+			});
+			$("input[name=CityTo]").autocomplete({
+				source : function(request, response) {
+					$.ajax({
+						url : "./Controller?command=autocomplete&field=city",
+						dataType : "json",
+						data : {
+							term : countryT
+						},
+						success : function(data) {
+							response(data);
+						}
+					});
+				}
+			});
+		});
+	</script>
 </body>
 </html>

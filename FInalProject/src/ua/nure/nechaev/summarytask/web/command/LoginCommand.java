@@ -1,6 +1,7 @@
 package ua.nure.nechaev.summarytask.web.command;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import ua.nure.nechaev.summarytask.db.dao.ManagerDAO;
 import ua.nure.nechaev.summarytask.db.entity.AccessLevel;
 import ua.nure.nechaev.summarytask.db.entity.Manager;
 import ua.nure.nechaev.summarytask.exception.AppException;
+import ua.nure.nechaev.summarytask.util.HashUtil;
 import ua.nure.nechaev.summarytask.web.requests.GetRequest;
 import ua.nure.nechaev.summarytask.web.requests.PostRequest;
 import ua.nure.nechaev.summarytask.web.requests.Request;
@@ -42,6 +44,11 @@ public class LoginCommand extends Command {
 			throw new AppException("Login/password cannot be empty");
 		}
 		ManagerDAO managerDAO = new ManagerDAO();
+		try {
+			password = HashUtil.hash(password);
+		} catch (NoSuchAlgorithmException e) {
+			LOG.error(e.getMessage(), e);
+		}
 		Manager manager = managerDAO.getManager(login, password);
 		LOG.trace("Found in DB: user --> " + manager);
 

@@ -66,10 +66,11 @@
 	<script>
 		function checkDate(){
 			let date = document.forms["newFlight"]["date"].value;
-			console.log(date);
-			if(Date.parse(date) < Date.now()){
+			let flightFrom  = document.forms["newFlight"]["dept_air"].value;
+			let flightTo  = document.forms["newFlight"]["ariv_air"].value;
+			if(Date.parse(date) < Date.now() || flightFrom == flightTo){
 				console.log("")
-				alert("Incorect date");
+				alert("Incorect data");
 				return false;
 			}
 		}

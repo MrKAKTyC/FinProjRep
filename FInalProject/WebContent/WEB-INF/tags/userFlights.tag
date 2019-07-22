@@ -20,8 +20,8 @@
 			href="./Controller?command=flights&action=sort&field=flightName">
 				<fmt:message key="flights_table.name" />
 		</a></th>
-		<th><fmt:message key="flights_table.arrival" /></th>
 		<th><fmt:message key="flights_table.depature" /></th>
+		<th><fmt:message key="flights_table.arrival" /></th>
 		<th><fmt:message key="flights_table.date" /></th>
 		<th><fmt:message key="flights_table.time" /></th>
 		<th><fmt:message key="flights_table.status" /></th>
