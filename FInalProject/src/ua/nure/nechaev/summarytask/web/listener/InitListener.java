@@ -93,7 +93,6 @@ public class InitListener implements ServletContextListener {
 		commands.add("reportAdd", new ReportAddNewCommand());
 		commands.add("reportUpdate", new ReportUpdateCommand());
 		sce.getServletContext().setAttribute("commands", commands);
-		// TODO Auto-generated method stub
 	}
 
 }
